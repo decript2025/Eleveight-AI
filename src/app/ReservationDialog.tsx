@@ -1,7 +1,7 @@
 'use client'
 
-import { Button } from "assets/components/ui/button"
-import { Checkbox } from "assets/components/ui/checkbox"
+import { Button } from "../components/ui/button"
+import { Checkbox } from "../components/ui/checkbox"
 import {
   Dialog,
   DialogClose,
@@ -9,14 +9,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "assets/components/ui/dialog"
-import { Input } from "assets/components/ui/input"
-import { Label } from "assets/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "assets/components/ui/select"
-import { Textarea } from "assets/components/ui/textarea"
+} from "../components/ui/dialog"
+import { Input } from "../components/ui/input"
+import { Label } from "../components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select"
+import { Textarea } from "../components/ui/textarea"
 import { X } from "lucide-react"
 import { PhoneInput } from "./PhoneInputWithSearch"
-import { useState } from "react"
+import { useState, useRef } from "react"
+import { toast } from "sonner"
 
 type ReservationDialogProps = {
   triggerVariant?: "default" | "no-border";
@@ -24,9 +25,87 @@ type ReservationDialogProps = {
 
 export function ReservationDialog({ triggerVariant = "default" }: ReservationDialogProps) {
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [open, setOpen] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+  
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    
+    if (isSubmitting) return;
+    
+    setIsSubmitting(true);
+    
+    try {
+      const formData = new FormData(event.currentTarget);
+      const data: Record<string, string | boolean> = {};
+      
+      // Convert FormData to object, handling special cases
+      formData.forEach((value, key) => {
+        if (key === "phone") {
+          // Ensure phone is always a string, never null
+          data[key] = phoneNumber || "";
+        } else if (key === "subscribe") {
+          // Handle checkbox as boolean
+          data[key] = true;
+        } else {
+          data[key] = value.toString();
+        }
+      });
+      
+      // Handle unchecked checkbox (it won't be in FormData)
+      if (!formData.has("subscribe")) {
+        data["subscribe"] = false;
+      }
+            
+      const response = await fetch('https://console.eleveight.ai/api/reservations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ data })
+      });
+      
+      // Try to parse response body for better error messages
+      let responseText = '';
+      let responseJson: any = null;
+      
+      try {
+        responseText = await response.text();
+        if (responseText) {
+          responseJson = JSON.parse(responseText);
+        }
+      } catch (parseError) {
+        console.log('[ReservationDialog] Could not parse response as JSON:', responseText);
+      }
+
+      // Check if the request was successful
+      if (!response.ok) {
+        const errorMessage = responseJson?.message || responseJson?.error || `Request failed with status ${response.status}`;
+        toast.error(`Submission failed: ${errorMessage}`);
+        return;
+      }
+
+      // Success case
+      toast.success("Form submitted successfully! We'll contact you soon.");
+
+      // Reset form
+      if (formRef.current) {
+        formRef.current.reset();
+        setPhoneNumber("");
+      }
+
+      // Close dialog
+      setOpen(false);
+      
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      toast.error(`There was an error submitting the form: ${errorMessage}`);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant={triggerVariant}>Reserve Now</Button>
       </DialogTrigger>
@@ -44,7 +123,7 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
           </DialogClose>
         </DialogHeader>
         
-        <form className="grid gap-3 sm:px-12 px-4">
+        <form ref={formRef} onSubmit={handleSubmit} className="grid gap-3 sm:px-12 px-4">
           <div className="grid gap-2">
             <Label htmlFor="firstname" className="text-[#ccc] text-[12px] mb-1">First Name *</Label>
             <Input 
@@ -84,6 +163,7 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
           <div className="grid gap-2">
             <Label htmlFor="phone" className="text-[#ccc] text-[12px] mb-1">Phone *</Label>
             <PhoneInput
+              name="phone"
               value={phoneNumber}
               onChange={setPhoneNumber}
               international
@@ -182,8 +262,8 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
             </Label>
           </div>
 
-          <Button type="submit" variant="default-white">
-            Submit
+          <Button type="submit" variant="default-white" disabled={isSubmitting}>
+            {isSubmitting ? "Submitting..." : "Submit"}
           </Button>
         </form>
 

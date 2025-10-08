@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import CookieConsent from "./CookieConsent";
+import { Toaster } from "../components/ui/sonner";
+import Header from "./header";
 
 const poppins = Poppins({
   variable: '--font-poppins',
@@ -38,8 +40,10 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} antialiased`}
       >
+        <Header />
         {children}
         <CookieConsent />
+        <Toaster />
       </body>
     </html>
   );
