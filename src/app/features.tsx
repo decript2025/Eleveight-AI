@@ -39,21 +39,21 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="mx-10 my-8 mb-[30px]">
-      <h2 className="text-[40px] my-5 text-center font-bold">Why Eleveight?</h2>
+    <section id="features" className="mx-10 my-20 mb-[30px] max-[1180px]:my-8">
+      <h2 className="text-[40px] max-[1180px]:text-[36px] my-5 text-left max-[1180px]:text-center font-bold">Why Eleveight?</h2>
       
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 min-[600px]:grid-cols-2 xl:grid-cols-4 gap-y-4 min-[600px]:gap-x-[30px] xl:gap-5">
         {features.map((feature, index) => (
           <div 
             key={index}
-            className={`text-center md:text-left ${index === 3 ? 'md:col-start-1' : ''}`}
+            className={`text-center xl:text-left min-[600px]:justify-self-center min-[600px]:max-w-[352px] ${index === 2 ? 'min-[600px]:col-span-2 xl:col-span-1' : ''}`}
           >
             <img 
               src={feature.icon} 
               alt={feature.title}
               width="32"
               height="32"
-              className="block mx-auto md:mx-0"
+              className="block mx-auto xl:mx-0"
             />
             <h3 className="text-[26px] font-bold mb-[14px]">{feature.title}</h3>
             <p className="text-base text-background mb-3 leading-[1.5]">{feature.description}</p>

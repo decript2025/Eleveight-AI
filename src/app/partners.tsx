@@ -15,30 +15,27 @@ export function Partners() {
       <h2 className="text-[40px] my-5 text-center font-bold">Our Partners</h2>
       
       <div className="max-[961px]:overflow-hidden whitespace-nowrap max-[961px]:max-w-[80vw] max-[961px]:mx-auto text-center">
-          {/* <div> */}
-             {/* transition-transform duration-[.5s] ease-in-out */}
-             <div className="inline-block max-[961px]:animate-[slide_15s_linear_infinite]">
-              {partners.map((img, index) => (
-                <img
-                  key={index}
-                  src={img.src}
-                  alt={img.alt}
-                  className="inline-block h-[100px] min-[1400px]:h-[150px] min-[962px]:h-[122px]"
-                />
-              ))}
-             </div>
-             <div className="max-[961px]:inline-block hidden  max-[961px]:animate-[slide_15s_linear_infinite]">
-              {partners.map((img, index) => (
-                <img
-                  key={index}
-                  src={img.src}
-                  alt={img.alt}
-                  className="inline-block h-[100px] min-[1400px]:h-[150px] min-[962px]:h-[122px]"
-                />
-              ))}
-             </div>
-          {/* </div> */}
-        </div>  
+        <div className="inline-block max-[961px]:animate-[slide_15s_linear_infinite]">
+        {partners.map((img, index) => (
+          <img
+            key={index}
+            src={img.src}
+            alt={img.alt}
+            className="inline-block h-[100px] min-[1400px]:h-[150px] min-[768px]:h-[122px]"
+          />
+        ))}
+        </div>
+        <div className="max-[961px]:inline-block hidden  max-[961px]:animate-[slide_15s_linear_infinite]">
+        {partners.map((img, index) => (
+          <img
+            key={index}
+            src={img.src}
+            alt={img.alt}
+            className="inline-block h-[100px] min-[1400px]:h-[150px] min-[768px]:h-[122px]"
+          />
+        ))}
+        </div>
+      </div>  
     </div>
   );
 };

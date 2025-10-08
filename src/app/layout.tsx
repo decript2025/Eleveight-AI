@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
+import CookieConsent from "./CookieConsent";
 
 const poppins = Poppins({
   variable: '--font-poppins',
@@ -26,10 +27,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link
+          rel="icon"
+          href="/favicon.svg"
+          type="image/svg"
+          sizes="any"
+        />
+      </head>
       <body
         className={`${poppins.variable} antialiased`}
       >
         {children}
+        <CookieConsent />
       </body>
     </html>
   );

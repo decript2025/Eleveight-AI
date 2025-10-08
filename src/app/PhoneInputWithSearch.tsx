@@ -88,6 +88,7 @@ const CountrySelect = ({
   const scrollAreaRef = React.useRef<HTMLDivElement>(null);
   const [searchValue, setSearchValue] = React.useState("");
   const [isOpen, setIsOpen] = React.useState(false);
+  const displayCountry = selectedCountry || (countryList.find((e) => e.value)?.value as RPNInput.Country) || ("US" as RPNInput.Country);
 
   return (
     <Popover
@@ -100,15 +101,12 @@ const CountrySelect = ({
     >
       <PopoverTrigger asChild>
         <Button
-          size={`icon`}
+          size="flag"
           type="button"
           className="flex gap-1 rounded-e-none rounded-s-lg border-r-0 px-3 focus:z-10"
           disabled={disabled}
         >
-          <FlagComponent
-            country={selectedCountry}
-            countryName={selectedCountry}
-          />
+          <FlagComponent country={displayCountry} countryName={displayCountry} />
           <ChevronsUpDown
             className={cn(
               "-mr-2 size-4 opacity-50",
@@ -117,7 +115,7 @@ const CountrySelect = ({
           />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[300px] p-0">
+      <PopoverContent align="start" sideOffset={4} className="w-[300px] p-0">
         <Command>
           <CommandInput
             value={searchValue}

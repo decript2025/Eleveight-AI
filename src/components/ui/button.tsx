@@ -5,18 +5,20 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "assets/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center px-[20px] py-2 whitespace-nowrap font-bold cursor-pointer border rounded-md hover:scale-105 transition-transform duration-300 ease-out focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center px-[20px] py-2 whitespace-nowrap font-bold cursor-pointer border rounded-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&>svg]:pointer-events-none [&>svg]:size-4 [&>svg]:shrink-0",
   {
     variants: {
       variant: {
         default: "bg-background text-foreground border-foreground",
-        "no-border": "bg-background text-foreground border-none"
+        "no-border": "bg-background text-foreground border-none",
+        "default-white": "bg-white text-black border-none"
       },
       size: {
-        default: "h-[45px] min-w-[150px] px-4 py-2",
-        sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-[50px] min-w-[180px] px-4 py-2",
+        default: "h-[45px] min-w-[150px] px-4 py-2 hover:scale-105 transition-transform duration-300 ease-out",
+        sm: "h-8 rounded-md px-3 text-xs hover:scale-105 transition-transform duration-300 ease-out",
+        lg: "h-[50px] min-w-[180px] px-4 py-2 hover:scale-105 transition-transform duration-300 ease-out",
         icon: "h-9 w-9",
+        flag: "h-9 w-[70px] transition-none hover:scale-100",
       },
     },
     defaultVariants: {

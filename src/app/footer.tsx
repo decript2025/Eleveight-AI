@@ -12,6 +12,10 @@ export default function Footer() {
           Phone: <a className="text-foreground mb-2 leading-relaxed" href="tel:+37499551234">+37499551234</a><br />
           Email:  <a className="text-foreground mb-2 leading-relaxed" href="mailto:info@eleveight.ai">info@eleveight.ai</a>
         </address>
+
+        <div className="mt-6 text-sm">
+          <a href="/faq" className="underline underline-offset-2">FAQ</a>
+        </div>
       </div>
     </footer>
   );
