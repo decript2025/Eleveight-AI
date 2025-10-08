@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import { useEffect, useState } from "react";
 import { ReservationDialog } from './ReservationDialog';
-// import { ReservationDialog } from "@/components/ReservationDialog";
 
 
 export default function Header() {
@@ -63,19 +62,17 @@ export default function Header() {
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-full"
       }`}
     >
-      <nav className="flex justify-between items-center gap-20">
-        <div className='w-[184px] h-[44px]'>
-          <Image
-            className="dark:invert"
-            src="/logo.svg"
-            alt="Eleveight AI"
-            width={184}
-            height={44}
-            priority
-          />
-        </div>
+      <nav className="flex justify-between items-center gap-10">
+        <Image
+          className="dark:invert w-[124px] h-auto md:w-[184px]"
+          src="/logo.svg"
+          alt="Eleveight AI"
+          width={184}
+          height={44}
+          priority
+        />
         
-        <div className="hidden w-full flex justify-between items-center gap-10">
+        <div className="hidden md:inline-block w-full flex justify-between items-center gap-10">
           <span className="flex gap-8">
             <a
               href="#about"

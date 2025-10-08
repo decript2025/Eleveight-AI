@@ -27,7 +27,7 @@ export function Partners() {
                 />
               ))}
              </div>
-             <div className="hidden max-[961px]:inline-block inline-block max-[961px]:animate-[slide_15s_linear_infinite]">
+             <div className="max-[961px]:inline-block hidden  max-[961px]:animate-[slide_15s_linear_infinite]">
               {partners.map((img, index) => (
                 <img
                   key={index}
