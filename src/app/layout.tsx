@@ -4,6 +4,7 @@ import "./globals.css";
 import CookieConsent from "./CookieConsent";
 import { Toaster } from "../components/ui/sonner";
 import Header from "./header";
+import Footer from "./footer";
 
 const poppins = Poppins({
   variable: '--font-poppins',
@@ -44,6 +45,8 @@ export default function RootLayout({
         {children}
         <CookieConsent />
         <Toaster />
+
+        <Footer />
       </body>
     </html>
   );

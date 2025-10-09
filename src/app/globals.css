@@ -81,16 +81,25 @@
 
 @layer utilities {
   @keyframes slide {
-    from {
+    0% {
       transform: translateX(0);
     }
-    to {
-      transform: translateX(-100%);
+    100% {
+      transform: translateX(-50%);
     }
   }
 
   .carousel-container:hover .carousel {
     animation-play-state: paused;
+  }
+
+  /* Ensure smooth carousel animation */
+  .animate-\[slide_15s_linear_infinite\] {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
   }
 
   .animate-fade-in {
@@ -109,28 +118,9 @@
 @layer components {
   .hero-bg {
     width: 100vw;
-    aspect-ratio: 8 / 5;
     max-height: 100vh;
     color: white;
     overflow: hidden;
-    background: url('/hero-web.jpg') no-repeat center center;
-    background-size: 100% auto;
-  }
-
-  @media (max-width: 768px) {
-    .hero-bg {
-      aspect-ratio: 128 / 85;
-      background: url('/hero-tablet.jpg') no-repeat center center;
-      background-size: 100% auto;
-    }
-  }
-
-  @media (max-width: 600px) {
-    .hero-bg {
-      aspect-ratio: 375 / 298;
-      background: url('/hero-mob.jpg') no-repeat center center;
-      background-size: 100% auto;
-    }
   }
 }
 

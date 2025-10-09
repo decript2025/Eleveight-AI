@@ -7,33 +7,33 @@ const partners = [
   { src: "/partners/xart_logo.png", alt: "Xart Logo" },
   { src: "/partners/digidata_logo.png", alt: "DigiData Logo" },
   { src: "/partners/uwc_dilijan_logo.png", alt: "UWC Dilijan Logo" },
+  { src: "/partners/yn_logo.png", alt: "Yn Logo" },
+  { src: "/partners/aica_logo.png", alt: "Aica Logo" },
+  { src: "/partners/eqwefy_logo.png", alt: "Eqwefy Logo" },
 ];
 
 export function Partners() {
+  // Duplicate partners array for seamless infinite loop
+  const duplicatedPartners = [...partners, ...partners];
+
   return (
-    <div className="mx-10 my-[25px]">
-      <h2 className="text-[40px] my-5 text-center font-bold">Our Partners</h2>
+    <div className="mx-10 mb-[25px]">
+      <h2 className="text-[40px] my-5 text-left max-[1180px]:text-center font-bold">Our Partners</h2>
       
-      <div className="max-[961px]:overflow-hidden whitespace-nowrap max-[961px]:max-w-[80vw] max-[961px]:mx-auto text-center">
-        <div className="inline-block max-[961px]:animate-[slide_15s_linear_infinite]">
-        {partners.map((img, index) => (
-          <img
-            key={index}
-            src={img.src}
-            alt={img.alt}
-            className="inline-block h-[100px] min-[1400px]:h-[150px] min-[768px]:h-[122px]"
-          />
-        ))}
-        </div>
-        <div className="max-[961px]:inline-block hidden  max-[961px]:animate-[slide_15s_linear_infinite]">
-        {partners.map((img, index) => (
-          <img
-            key={index}
-            src={img.src}
-            alt={img.alt}
-            className="inline-block h-[100px] min-[1400px]:h-[150px] min-[768px]:h-[122px]"
-          />
-        ))}
+      <div className="overflow-hidden whitespace-nowrap mx-auto text-center">
+        <div className="inline-flex items-center animate-[slide_15s_linear_infinite]">
+          {duplicatedPartners.map((img, index) => (
+            <div
+              key={`${img.alt}-${index}`}
+              className="flex-shrink-0 mx-6"
+            >
+              <img
+                src={img.src}
+                alt={img.alt}
+                className="h-[100px] min-[1600px]:h-[150px] min-[768px]:h-[122px] object-contain"
+              />
+            </div>
+          ))}
         </div>
       </div>  
     </div>

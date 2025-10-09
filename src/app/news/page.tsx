@@ -1,6 +1,3 @@
-import Header from '../header';
-import Footer from '../footer';
-
 export default function NewsPage() {
   const newsItems = [
     {
@@ -31,26 +28,10 @@ export default function NewsPage() {
       excerpt: "We're honored to receive the 'Innovation in Education Technology' award at the annual EdTech Excellence Awards.",
       category: "Award"
     },
-    {
-      id: 5,
-      title: "Expanding Global Reach: New Markets and Languages",
-      date: "November 20, 2024",
-      excerpt: "Eleveight AI is expanding its services to support multiple languages and educational systems across different countries.",
-      category: "Expansion"
-    },
-    {
-      id: 6,
-      title: "Student Success Stories: Real Results from AI Tutoring",
-      date: "November 15, 2024",
-      excerpt: "Read inspiring stories from students who have achieved remarkable academic improvements using our AI-powered tutoring system.",
-      category: "Success Stories"
-    }
   ];
 
   return (
-    <div className="min-h-screen bg-white text-black">
-      <Header />
-      
+    <div className="min-h-screen bg-white text-black">      
       <main className="pt-24">
         <div className="container mx-auto px-8 py-16">
           <div className="max-w-4xl mx-auto">
@@ -92,28 +73,9 @@ export default function NewsPage() {
                 </article>
               ))}
             </div>
-            
-            <div className="mt-16 text-center">
-              <h2 className="text-2xl font-semibold mb-6">Stay Connected</h2>
-              <p className="text-gray-600 mb-6">
-                Subscribe to our newsletter to receive the latest updates and insights directly in your inbox.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg bg-white text-black focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                />
-                <button className="px-6 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium">
-                  Subscribe
-                </button>
-              </div>
-            </div>
           </div>
         </div>
       </main>
-      
-      <Footer />
     </div>
   );
 }

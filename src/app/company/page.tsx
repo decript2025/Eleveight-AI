@@ -1,39 +1,30 @@
-import Header from '../header';
-import Footer from '../footer';
-
 export default function CompanyPage() {
   return (
-    <div className="min-h-screen bg-white text-black">
-      <Header />
-      
+    <div className="min-h-screen bg-white text-black">      
       <main className="pt-24">
         <div className="container mx-auto px-8 py-16">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold mb-8 text-center">
-              About Our Company
+            Empowering AI infrastructure & data innovation
             </h1>
             
             <div className="prose prose-lg mx-auto text-black">
-              <p className="text-xl mb-8 text-center text-gray-600">
-                Learn more about Eleveight AI and our mission to revolutionize education through artificial intelligence.
+              <p className="text-xl mb-8 text-left text-gray-600">
+              Eleveight AI is dedicated data cluster under DIGI Data – the largest colocated data center in Armenia, with an installed capacity of 20 MW. Leveraging the technological and infrastructural foundation of DIGI Data, the project ensures high reliability, scalability, and full compliance with the most advanced industry standards.
               </p>
               
               <div className="grid md:grid-cols-2 gap-12 mt-16">
                 <div>
                   <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
                   <p className="text-gray-600 leading-relaxed">
-                    At Eleveight AI, we believe that every student deserves personalized, high-quality education. 
-                    Our mission is to leverage cutting-edge artificial intelligence to create adaptive learning 
-                    experiences that meet each student's unique needs and learning style.
+                  To empower the next generation of artificial intelligence by providing world-class infrastructure, computing power, and scientific expertise — enabling innovators, researchers, and enterprises to turn their most ambitious ideas into reality.
                   </p>
                 </div>
                 
                 <div>
                   <h2 className="text-2xl font-semibold mb-4">Our Vision</h2>
                   <p className="text-gray-600 leading-relaxed">
-                    We envision a future where AI-powered education breaks down barriers to learning, 
-                    making world-class education accessible to students everywhere, regardless of their 
-                    background, location, or circumstances.
+                  To establish Armenia as a leading hub for AI innovation and data infrastructure — where technology, research, and industry unite to accelerate global progress.
                   </p>
                 </div>
               </div>
@@ -49,7 +40,7 @@ export default function CompanyPage() {
                     </div>
                     <h3 className="font-semibold mb-2">Innovation</h3>
                     <p className="text-sm text-gray-600">
-                      We continuously push the boundaries of what's possible in educational technology.
+                    We pioneer advancements in AI infrastructure and data technologies, constantly exploring new ways to accelerate the future of artificial intelligence.
                     </p>
                   </div>
                   
@@ -61,7 +52,7 @@ export default function CompanyPage() {
                     </div>
                     <h3 className="font-semibold mb-2">Accessibility</h3>
                     <p className="text-sm text-gray-600">
-                      We believe quality education should be accessible to everyone, everywhere.
+                    We make cutting-edge computing power and AI resources available to innovators and enterprises of all sizes — fostering equal opportunity in the global tech ecosystem.
                     </p>
                   </div>
                   
@@ -73,7 +64,7 @@ export default function CompanyPage() {
                     </div>
                     <h3 className="font-semibold mb-2">Excellence</h3>
                     <p className="text-sm text-gray-600">
-                      We maintain the highest standards in everything we do, from product development to customer support.
+                    We deliver uncompromising quality across every layer of our work — from engineering and data center operations to customer experience and research partnerships.
                     </p>
                   </div>
                 </div>
@@ -82,8 +73,6 @@ export default function CompanyPage() {
           </div>
         </div>
       </main>
-      
-      <Footer />
     </div>
   );
 }
