@@ -48,13 +48,13 @@ export default function Header() {
             <span className="flex gap-8">
               <Link
                 href="/company"
-                className={`text-sm min-w-[60px] relative transition-colors duration-300 hover:font-bold after:content-[''] after:absolute after:h-[3px] after:rounded-full after:bg-foreground after:-bottom-[20px] after:left-0 after:transition-all after:duration-300 after:w-0 hover:after:w-full ${isActive('/company') ? 'font-bold after:w-full' : ''}`}
+                className={`text-sm min-w-[65px] relative transition-colors duration-300 hover:font-bold after:content-[''] after:absolute after:h-[3px] after:rounded-full after:bg-foreground after:-bottom-[20px] after:left-0 after:transition-all after:duration-300 after:w-0 hover:after:w-full ${isActive('/company') ? 'font-bold after:w-full' : ''}`}
               >
                 Company
               </Link>
               <Link
                 href="/contacts"
-                className={`text-sm min-w-[60px] relative transition-colors duration-300 hover:font-bold after:content-[''] after:absolute after:h-[3px] after:rounded-full after:bg-foreground after:-bottom-[20px] after:left-0 after:transition-all after:duration-300 after:w-0 hover:after:w-full ${isActive('/contacts') ? 'font-bold after:w-full' : ''}`}
+                className={`text-sm min-w-[65px] relative transition-colors duration-300 hover:font-bold after:content-[''] after:absolute after:h-[3px] after:rounded-full after:bg-foreground after:-bottom-[20px] after:left-0 after:transition-all after:duration-300 after:w-0 hover:after:w-full ${isActive('/contacts') ? 'font-bold after:w-full' : ''}`}
               >
                 Contact
               </Link>

@@ -25,7 +25,6 @@ export default function CompanyPage() {
         const response = await fetch('https://console.eleveight.ai/api/teams?populate=Image');
         const data = await response.json();
         setTeamMembers(data.data || []);
-        console.log(data)
       } catch (error) {
         console.error('Failed to fetch team members:', error);
       } finally {
@@ -51,14 +50,14 @@ export default function CompanyPage() {
               
               <div className="grid md:grid-cols-2 gap-12 mt-16">
                 <div>
-                  <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
+                  <h2 className="text-2xl text-center md:text-5xl font-semibold mb-4">Our Mission</h2>
                   <p className="text-gray-600 leading-relaxed">
                   To empower the next generation of artificial intelligence by providing world-class infrastructure, computing power, and scientific expertise — enabling innovators, researchers, and enterprises to turn their most ambitious ideas into reality.
                   </p>
                 </div>
                 
                 <div>
-                  <h2 className="text-2xl font-semibold mb-4">Our Vision</h2>
+                  <h2 className="text-2xl text-center md:text-5xl font-semibold mb-4">Our Vision</h2>
                   <p className="text-gray-600 leading-relaxed">
                   To establish Armenia as a leading hub for AI innovation and data infrastructure — where technology, research, and industry unite to accelerate global progress.
                   </p>
@@ -66,7 +65,7 @@ export default function CompanyPage() {
               </div>
               
               <div className="mt-16">
-                <h2 className="text-2xl font-semibold mb-6">Our Values</h2>
+                <h2 className="text-2xl text-center md:text-5xl font-semibold mb-6">Our Values</h2>
                 <div className="grid md:grid-cols-3 gap-8">
                   <div className="text-center">
                     <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
@@ -111,7 +110,7 @@ export default function CompanyPage() {
 
                   {/* Team Members Section */}
                   <div className="max-w-7xl mx-auto mb-20 px-8">
-            <h2 className="text-3xl md:text-5xl font-bold mb-16 text-left">
+            <h2 className="text-2xl text-center md:text-5xl font-semibold mb-8">
               Our Team
             </h2>
             
@@ -122,7 +121,7 @@ export default function CompanyPage() {
             ) : (
               <>
                 {/* Mobile: 1 column, Tablet: 3 columns */}
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:hidden gap-x-8 gap-y-12">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:hidden gap-x-8 gap-y-8 md:gap-y-12">
                   {teamMembers.map((member) => (
                     <div key={member.id} className="flex flex-col items-center text-center">
                       {member.Image?.url && (
