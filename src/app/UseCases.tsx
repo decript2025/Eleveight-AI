@@ -4,10 +4,10 @@ import React from "react";
 import { Carousel, CarouselContent, CarouselItem } from "../components/ui/carousel";
 import type { CarouselApi } from "../components/ui/carousel";
 
-const images: { src: string; alt: string }[] = [
-  { src: "/use-cases/gen2b.jpg", alt: "Use case 1" },
-  { src: "/use-cases/krisp.jpg", alt: "Use case 2" },
-  { src: "/use-cases/render.jpg", alt: "Use case 3" },
+const images: { src: string; mobileSrc: string; alt: string }[] = [
+  { src: "/use-cases/gen2b.jpg", mobileSrc: "/use-cases/Gen2b_mob.png", alt: "Use case 1" },
+  { src: "/use-cases/krisp.jpg", mobileSrc: "/use-cases/Krisp_mob.png", alt: "Use case 2" },
+  { src: "/use-cases/render.jpg", mobileSrc: "/use-cases/Render_mob.png", alt: "Use case 3" },
 ];
 
 export function UseCases() {
@@ -34,26 +34,29 @@ export function UseCases() {
     return () => clearInterval(id);
   }, [api]);
   return (
-    <section id="use-cases" className="mx-10 mb-[80px]">
+    <section id="use-cases" className="mx-10 mb-[60px] max-md:mx-5">
       <h2 className="text-[40px] max-[1180px]:text-[36px] my-5 text-left max-[1180px]:text-center font-bold">Use Cases</h2>
 
-      <div className="relative">
+      <div className="relative max-md:flex max-md:flex-col max-md:items-center">
         <Carousel
           opts={{ align: "start", loop: true }}
           setApi={setApi}
-          className="w-full"
+          className="w-full max-md:w-auto"
         >
-          <CarouselContent>
+          <CarouselContent className="max-md:-ml-0">
             {images.map((img, index) => (
-              <CarouselItem key={index}>
+              <CarouselItem key={index} className="max-md:pl-0 max-md:flex max-md:justify-center">
                 <div className="rounded-[12px] overflow-hidden">
-                  <img src={img.src} alt={img.alt} className="w-full h-full object-cover" />
+                  <picture>
+                    <source media="(max-width: 768px)" srcSet={img.mobileSrc} />
+                    <img src={img.src} alt={img.alt} className="w-full h-auto object-cover max-md:max-w-[75vw]" />
+                  </picture>
                 </div>
               </CarouselItem>
             ))}
           </CarouselContent>
         </Carousel>
-        <div className="flex items-center justify-center gap-2 mt-4">
+        <div className="flex items-center justify-center gap-2 mt-4 max-md:mt-6">
           {Array.from({ length: count }).map((_, i) => (
             <button
               key={i}

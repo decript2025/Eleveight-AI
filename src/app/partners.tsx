@@ -30,7 +30,7 @@ export function Partners() {
               <img
                 src={img.src}
                 alt={img.alt}
-                className="h-[100px] min-[1600px]:h-[150px] min-[768px]:h-[122px] object-contain"
+                className="min-[1600px]:h-[150px] h-[122px] object-contain"
               />
             </div>
           ))}

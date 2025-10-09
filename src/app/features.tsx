@@ -39,7 +39,7 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="mx-10 mb-[80px]">
+    <section id="features" className="mx-10 mb-[60px]">
       <h2 className="text-[40px] max-[1180px]:text-[36px] my-5 text-left max-[1180px]:text-center font-bold">Why Eleveight?</h2>
       
       <div className="grid grid-cols-1 min-[600px]:grid-cols-2 xl:grid-cols-4 gap-y-4 min-[600px]:gap-x-[30px] xl:gap-5">

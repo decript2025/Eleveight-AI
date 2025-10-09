@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 interface TeamMember {
   id: number;
-  Name: string;
+  Fullname: string;
   Position: string;
   Bio?: string;
   Image?: {
@@ -16,13 +16,16 @@ interface TeamMember {
 export default function CompanyPage() {
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     async function fetchTeamMembers() {
       try {
         const response = await fetch('https://console.eleveight.ai/api/teams?populate=Image');
         const data = await response.json();
         setTeamMembers(data.data || []);
+        console.log(data)
       } catch (error) {
         console.error('Failed to fetch team members:', error);
       } finally {
@@ -107,39 +110,82 @@ export default function CompanyPage() {
         </div>
 
                   {/* Team Members Section */}
-                  <div className="max-w-6xl mx-auto mb-20 px-8">
-            <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center">
+                  <div className="max-w-7xl mx-auto mb-20 px-8">
+            <h2 className="text-3xl md:text-5xl font-bold mb-16 text-left">
               Our Team
             </h2>
             
-            {loading ? (
+            {!isMounted ? (
+              <div className="text-center text-gray-600">Loading team members...</div>
+            ) : loading ? (
               <div className="text-center text-gray-600">Loading team members...</div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {teamMembers.map((member) => (
-                  <div key={member.id} className="group">
-                    <div className="bg-gray-50 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
+              <>
+                {/* Mobile: 1 column, Tablet: 3 columns */}
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:hidden gap-x-8 gap-y-12">
+                  {teamMembers.map((member) => (
+                    <div key={member.id} className="flex flex-col items-center text-center">
                       {member.Image?.url && (
-                        <div className="relative w-full h-64 bg-gray-200">
+                        <div className="relative w-40 h-40 mb-4">
                           <Image
                             src={`https://console.eleveight.ai${member.Image.url}`}
-                            alt={member.Name}
+                            alt={member.Fullname}
                             fill
-                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, 33vw"
+                            className="object-cover rounded-full"
                           />
                         </div>
                       )}
-                      <div className="p-6">
-                        <h3 className="text-xl font-semibold mb-2">{member.Name}</h3>
-                        <p className="text-sm text-primary font-medium mb-3">{member.Position}</p>
-                        {member.Bio && (
-                          <p className="text-sm text-gray-600 leading-relaxed">{member.Bio}</p>
-                        )}
-                      </div>
+                      <h3 className="text-lg font-bold mb-1">{member.Fullname}</h3>
+                      <p className="text-sm text-gray-600">{member.Position}</p>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+
+                {/* Desktop: Alternating 4-3-4-3 pattern */}
+                <div className="hidden lg:block">
+                  {(() => {
+                    const rows: TeamMember[][] = [];
+                    let currentIndex = 0;
+                    
+                    while (currentIndex < teamMembers.length) {
+                      const isFirstRowOfPair = rows.length % 2 === 0;
+                      const itemsInRow = isFirstRowOfPair ? 4 : 3;
+                      rows.push(teamMembers.slice(currentIndex, currentIndex + itemsInRow));
+                      currentIndex += itemsInRow;
+                    }
+                    
+                    return rows.map((row, rowIndex) => {
+                      const isFirstRowOfPair = rowIndex % 2 === 0;
+                      
+                      return (
+                        <div 
+                          key={rowIndex} 
+                          className={`grid gap-x-8 gap-y-12 mb-12 ${isFirstRowOfPair ? 'grid-cols-4' : 'grid-cols-3 max-w-5xl mx-auto'}`}
+                        >
+                          {row.map((member) => (
+                            <div key={member.id} className="flex flex-col items-center text-center">
+                              {member.Image?.url && (
+                                <div className="relative w-40 h-40 mb-4">
+                                  <Image
+                                    src={`https://console.eleveight.ai${member.Image.url}`}
+                                    alt={member.Fullname}
+                                    fill
+                                    sizes="160px"
+                                    className="object-cover rounded-full"
+                                  />
+                                </div>
+                              )}
+                              <h3 className="text-lg font-bold mb-1">{member.Fullname}</h3>
+                              <p className="text-sm text-gray-600">{member.Position}</p>
+                            </div>
+                          ))}
+                        </div>
+                      );
+                    });
+                  })()}
+                </div>
+              </>
             )}
           </div>
       </main>

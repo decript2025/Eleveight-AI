@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface ArticleImage {
   id: number;
@@ -14,6 +15,7 @@ interface Article {
   documentId: string;
   Title: string;
   Description: string;
+  slug: string;
   createdAt: string;
   publishedAt: string;
   Image: ArticleImage;
@@ -26,7 +28,7 @@ interface ApiResponse {
 
 async function getArticles(): Promise<Article[]> {
   try {
-    const res = await fetch('https://console.eleveight.ai/api/articles', {
+    const res = await fetch('https://console.eleveight.ai/api/articles?populate=Image', {
       next: { revalidate: 60 } // Revalidate every 60 seconds
     });
     
@@ -35,6 +37,7 @@ async function getArticles(): Promise<Article[]> {
     }
     
     const data: ApiResponse = await res.json();
+    console.log(data)
     return data.data || [];
   } catch (error) {
     console.error('Error fetching articles:', error);
@@ -52,7 +55,9 @@ function formatDate(dateString: string): string {
 }
 
 export default async function NewsPage() {
-  const articles = await getArticles();
+  // Temporarily disabled API fetch due to backend issues
+  // const articles = await getArticles();
+  const articles: Article[] = [];
 
   return (
     <div className="min-h-screen bg-white text-black">      
@@ -71,7 +76,7 @@ export default async function NewsPage() {
               {articles.length > 0 ? (
                 articles.map((article) => (
                   <article key={article.documentId} className="border-b border-gray-200 pb-8 last:border-b-0">
-                    <div className="flex flex-col md:flex-row md:items-start gap-6">
+                    <Link href={`/news/${article.slug}`} className="flex flex-col md:flex-row md:items-start gap-6 group">
                       {article.Image && (
                         <div className="relative w-full md:w-64 h-48 flex-shrink-0">
                           <Image
@@ -95,7 +100,7 @@ export default async function NewsPage() {
                           </time>
                         </div>
                         
-                        <h2 className="text-xl md:text-2xl font-semibold mb-3 hover:text-primary transition-colors cursor-pointer">
+                        <h2 className="text-xl md:text-2xl font-semibold mb-3 group-hover:text-primary transition-colors">
                           {article.Title}
                         </h2>
                         
@@ -103,11 +108,11 @@ export default async function NewsPage() {
                           {article.Description}
                         </p>
                         
-                        <button className="text-primary hover:text-primary/80 font-medium transition-colors">
+                        <span className="text-primary font-medium group-hover:underline inline-block">
                           Read more →
-                        </button>
+                        </span>
                       </div>
-                    </div>
+                    </Link>
                   </article>
                 ))
               ) : (

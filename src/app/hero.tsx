@@ -2,7 +2,7 @@ import { ReservationDialog } from "./ReservationDialog";
 
 export default function Hero () {
   return (
-    <section className="relative top-[85px] overflow-hidden z-[1] mb-[80px]">
+    <section className="relative top-[78px] md:top-[85px] overflow-hidden z-[1] mb-[60px]">
       {/* Banner Image */}
       <div 
         className="relative w-full h-[260px] bg-cover bg-center bg-no-repeat"
