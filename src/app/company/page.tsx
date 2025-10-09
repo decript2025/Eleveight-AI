@@ -171,7 +171,7 @@ export default function CompanyPage() {
                                     alt={member.Fullname}
                                     fill
                                     sizes="160px"
-                                    className="object-cover rounded-full"
+                                    className="object-cover"
                                   />
                                 </div>
                               )}
