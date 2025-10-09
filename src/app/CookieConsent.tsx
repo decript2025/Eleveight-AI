@@ -10,10 +10,12 @@ const STORAGE_KEY = "cookie-consent-choice";
 
 export default function CookieConsent() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     try {
-      const stored = typeof window !== "undefined" ? window.localStorage.getItem(STORAGE_KEY) : null;
+      const stored = window.localStorage.getItem(STORAGE_KEY);
       if (!stored) {
         // No decision yet, open on first render
         setIsOpen(true);
@@ -37,7 +39,7 @@ export default function CookieConsent() {
     ].join(" ");
   }, [isOpen]);
 
-  if (!isOpen) return null;
+  if (!isMounted || !isOpen) return null;
 
   return (
     <div className={containerClasses}>

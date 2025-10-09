@@ -1,4 +1,37 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+
+interface TeamMember {
+  id: number;
+  Name: string;
+  Position: string;
+  Bio?: string;
+  Image?: {
+    url: string;
+  };
+}
+
 export default function CompanyPage() {
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchTeamMembers() {
+      try {
+        const response = await fetch('https://console.eleveight.ai/api/teams?populate=Image');
+        const data = await response.json();
+        setTeamMembers(data.data || []);
+      } catch (error) {
+        console.error('Failed to fetch team members:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchTeamMembers();
+  }, []);
+
   return (
     <div className="min-h-screen bg-white text-black">      
       <main className="pt-24">
@@ -72,6 +105,43 @@ export default function CompanyPage() {
             </div>
           </div>
         </div>
+
+                  {/* Team Members Section */}
+                  <div className="max-w-6xl mx-auto mb-20 px-8">
+            <h2 className="text-3xl md:text-5xl font-bold mb-12 text-center">
+              Our Team
+            </h2>
+            
+            {loading ? (
+              <div className="text-center text-gray-600">Loading team members...</div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {teamMembers.map((member) => (
+                  <div key={member.id} className="group">
+                    <div className="bg-gray-50 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
+                      {member.Image?.url && (
+                        <div className="relative w-full h-64 bg-gray-200">
+                          <Image
+                            src={`https://console.eleveight.ai${member.Image.url}`}
+                            alt={member.Name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      )}
+                      <div className="p-6">
+                        <h3 className="text-xl font-semibold mb-2">{member.Name}</h3>
+                        <p className="text-sm text-primary font-medium mb-3">{member.Position}</p>
+                        {member.Bio && (
+                          <p className="text-sm text-gray-600 leading-relaxed">{member.Bio}</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
       </main>
     </div>
   );

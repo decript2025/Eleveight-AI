@@ -1,34 +1,58 @@
-export default function NewsPage() {
-  const newsItems = [
-    {
-      id: 1,
-      title: "Eleveight AI Launches Revolutionary Learning Platform",
-      date: "December 15, 2024",
-      excerpt: "We're excited to announce the launch of our new AI-powered learning platform that adapts to each student's unique learning style and pace.",
-      category: "Product Launch"
-    },
-    {
-      id: 2,
-      title: "Partnership with Leading Educational Institutions",
-      date: "December 10, 2024",
-      excerpt: "Eleveight AI has formed strategic partnerships with top universities and schools to bring advanced AI tutoring to more students worldwide.",
-      category: "Partnership"
-    },
-    {
-      id: 3,
-      title: "AI Technology Breakthrough in Personalized Education",
-      date: "December 5, 2024",
-      excerpt: "Our research team has achieved a significant breakthrough in machine learning algorithms that improve student engagement and learning outcomes.",
-      category: "Research"
-    },
-    {
-      id: 4,
-      title: "Eleveight AI Receives Industry Recognition",
-      date: "November 28, 2024",
-      excerpt: "We're honored to receive the 'Innovation in Education Technology' award at the annual EdTech Excellence Awards.",
-      category: "Award"
-    },
-  ];
+import Image from 'next/image';
+
+interface ArticleImage {
+  id: number;
+  documentId: string;
+  url: string;
+  alternativeText: string | null;
+  width: number;
+  height: number;
+}
+
+interface Article {
+  id: number;
+  documentId: string;
+  Title: string;
+  Description: string;
+  createdAt: string;
+  publishedAt: string;
+  Image: ArticleImage;
+  Category?: string;
+}
+
+interface ApiResponse {
+  data: Article[];
+}
+
+async function getArticles(): Promise<Article[]> {
+  try {
+    const res = await fetch('https://console.eleveight.ai/api/articles', {
+      next: { revalidate: 60 } // Revalidate every 60 seconds
+    });
+    
+    if (!res.ok) {
+      throw new Error('Failed to fetch articles');
+    }
+    
+    const data: ApiResponse = await res.json();
+    return data.data || [];
+  } catch (error) {
+    console.error('Error fetching articles:', error);
+    return [];
+  }
+}
+
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+}
+
+export default async function NewsPage() {
+  const articles = await getArticles();
 
   return (
     <div className="min-h-screen bg-white text-black">      
@@ -44,34 +68,51 @@ export default function NewsPage() {
             </p>
             
             <div className="space-y-8">
-              {newsItems.map((item) => (
-                <article key={item.id} className="border-b border-gray-200 pb-8 last:border-b-0">
-                  <div className="flex flex-col md:flex-row md:items-start gap-4">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-3">
-                        <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">
-                          {item.category}
-                        </span>
-                        <time className="text-sm text-gray-600">
-                          {item.date}
-                        </time>
+              {articles.length > 0 ? (
+                articles.map((article) => (
+                  <article key={article.documentId} className="border-b border-gray-200 pb-8 last:border-b-0">
+                    <div className="flex flex-col md:flex-row md:items-start gap-6">
+                      {article.Image && (
+                        <div className="relative w-full md:w-64 h-48 flex-shrink-0">
+                          <Image
+                            src={`https://console.eleveight.ai${article.Image.url}`}
+                            alt={article.Image.alternativeText || article.Title}
+                            fill
+                            className="object-cover rounded-lg"
+                          />
+                        </div>
+                      )}
+                      
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-3">
+                          {article.Category && (
+                            <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">
+                              {article.Category}
+                            </span>
+                          )}
+                          <time className="text-sm text-gray-600">
+                            {formatDate(article.publishedAt)}
+                          </time>
+                        </div>
+                        
+                        <h2 className="text-xl md:text-2xl font-semibold mb-3 hover:text-primary transition-colors cursor-pointer">
+                          {article.Title}
+                        </h2>
+                        
+                        <p className="text-gray-600 leading-relaxed mb-4">
+                          {article.Description}
+                        </p>
+                        
+                        <button className="text-primary hover:text-primary/80 font-medium transition-colors">
+                          Read more →
+                        </button>
                       </div>
-                      
-                      <h2 className="text-xl md:text-2xl font-semibold mb-3 hover:text-primary transition-colors cursor-pointer">
-                        {item.title}
-                      </h2>
-                      
-                      <p className="text-gray-600 leading-relaxed mb-4">
-                        {item.excerpt}
-                      </p>
-                      
-                      <button className="text-primary hover:text-primary/80 font-medium transition-colors">
-                        Read more →
-                      </button>
                     </div>
-                  </div>
-                </article>
-              ))}
+                  </article>
+                ))
+              ) : (
+                <p className="text-center text-gray-500">No articles available at the moment.</p>
+              )}
             </div>
           </div>
         </div>
