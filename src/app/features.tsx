@@ -1,3 +1,4 @@
+import Image from "next/image";
 
 const features = [
   {
@@ -48,11 +49,11 @@ export function Features() {
             key={index}
             className={`text-center xl:text-left min-[600px]:justify-self-center min-[600px]:max-w-[352px] ${index === 2 ? 'min-[600px]:col-span-2 xl:col-span-1' : ''}`}
           >
-            <img 
+            <Image 
               src={feature.icon} 
               alt={feature.title}
-              width="32"
-              height="32"
+              width={32}
+              height={32}
               className="block mx-auto xl:mx-0"
             />
             <h3 className="text-[26px] font-bold mb-[14px]">{feature.title}</h3>

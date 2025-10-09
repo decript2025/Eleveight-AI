@@ -72,7 +72,8 @@ function formatDate(dateString: string): string {
 function renderContent(content: ArticleContent[]) {
   return content.map((block, index) => {
     if (block.type === 'heading') {
-      const HeadingTag = `h${block.level || 2}` as keyof JSX.IntrinsicElements;
+      const level = block.level || 2;
+      const HeadingTag = `h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
       const text = block.children.map(child => child.text).join('');
       const headingClasses = {
         h1: 'text-4xl md:text-5xl font-bold mb-6 mt-8',
@@ -84,7 +85,7 @@ function renderContent(content: ArticleContent[]) {
       };
       
       return (
-        <HeadingTag key={index} className={headingClasses[HeadingTag as keyof typeof headingClasses]}>
+        <HeadingTag key={index} className={headingClasses[HeadingTag]}>
           {text}
         </HeadingTag>
       );
@@ -94,7 +95,7 @@ function renderContent(content: ArticleContent[]) {
       return (
         <p key={index} className="text-gray-700 leading-relaxed mb-4">
           {block.children.map((child, childIndex) => {
-            let text = child.text || '';
+            const text = child.text || '';
             if (child.bold) {
               return <strong key={childIndex}>{text}</strong>;
             }

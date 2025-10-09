@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import { Button } from "../components/ui/button";
 
 const STORAGE_KEY = "cookie-consent";
@@ -48,7 +49,7 @@ export default function CookieConsent() {
       >
         <div className="text-white/90">
           <div className="mb-2 text-sm font-semibold">
-          <img className="inline-block mr-2" src="/Ilustration Wrapp.svg" alt="Ilustration Wrapp" />
+          <Image className="inline-block mr-2" src="/Ilustration Wrapp.svg" alt="Ilustration Wrapp" width={24} height={24} />
             We use cookies to improve our website and your experience.</div>
         </div>
 

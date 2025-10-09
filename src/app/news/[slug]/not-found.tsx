@@ -7,7 +7,7 @@ export default function NotFound() {
         <h1 className="text-6xl font-bold mb-4">404</h1>
         <h2 className="text-2xl md:text-3xl font-semibold mb-4">Article Not Found</h2>
         <p className="text-gray-600 mb-8">
-          The article you're looking for doesn't exist or has been removed.
+          The article you&apos;re looking for doesn&apos;t exist or has been removed.
         </p>
         <Link 
           href="/news" 

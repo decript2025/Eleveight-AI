@@ -26,24 +26,25 @@ interface ApiResponse {
   data: Article[];
 }
 
-async function getArticles(): Promise<Article[]> {
-  try {
-    const res = await fetch('https://console.eleveight.ai/api/articles?populate=Image', {
-      next: { revalidate: 60 } // Revalidate every 60 seconds
-    });
-    
-    if (!res.ok) {
-      throw new Error('Failed to fetch articles');
-    }
-    
-    const data: ApiResponse = await res.json();
-    console.log(data)
-    return data.data || [];
-  } catch (error) {
-    console.error('Error fetching articles:', error);
-    return [];
-  }
-}
+// Temporarily disabled due to backend issues
+// async function getArticles(): Promise<Article[]> {
+//   try {
+//     const res = await fetch('https://console.eleveight.ai/api/articles?populate=Image', {
+//       next: { revalidate: 60 } // Revalidate every 60 seconds
+//     });
+//     
+//     if (!res.ok) {
+//       throw new Error('Failed to fetch articles');
+//     }
+//     
+//     const data: ApiResponse = await res.json();
+//     console.log(data)
+//     return data.data || [];
+//   } catch (error) {
+//     console.error('Error fetching articles:', error);
+//     return [];
+//   }
+// }
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);

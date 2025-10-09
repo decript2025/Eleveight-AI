@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ReservationDialog } from "./ReservationDialog";
 
 export default function Hero () {
@@ -15,10 +16,13 @@ export default function Hero () {
       {/* Content below banner */}
       <div className="container mx-auto px-4 py-12 md:py-16">
         <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
-          <img
+          <Image
             className="mb-8 w-[45vw] max-w-[700px] min-w-[200px] sm:min-w-[250px] md:min-w-[300px]"
             src="/logo_text.svg"
             alt="Eleveight AI"
+            width={700}
+            height={200}
+            priority
           />
           <p className="mb-8 animate-fade-in-delay text-[16px] leading-6 w-[240px] sm:w-[345px] md:w-[375px] lg:w-[520px] md:text-[22px] lg:text-[26px] lg:leading-7 mx-auto">
             The cutting-edge technologies for AI disruptions

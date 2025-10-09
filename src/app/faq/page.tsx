@@ -18,7 +18,7 @@ export default async function FAQPage() {
       const json = (await res.json()) as FAQResponse
       items = Array.isArray(json?.data) ? json.data : []
     }
-  } catch (_) {
+  } catch {
     // Intentionally ignore and fall back to empty state
   }
 

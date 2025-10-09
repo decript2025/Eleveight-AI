@@ -1,5 +1,7 @@
 'use client'
 
+import Image from "next/image";
+
 const partners = [
   { src: "/partners/csi_logo.png", alt: "CSI Logo" },
   { src: "/partners/ep_logo.png", alt: "EP Logo" },
@@ -27,10 +29,12 @@ export function Partners() {
               key={`${img.alt}-${index}`}
               className="flex-shrink-0 mx-6"
             >
-              <img
+              <Image
                 src={img.src}
                 alt={img.alt}
-                className="min-[1600px]:h-[150px] h-[122px] object-contain"
+                width={150}
+                height={150}
+                className="min-[1600px]:h-[150px] h-[122px] w-auto object-contain"
               />
             </div>
           ))}

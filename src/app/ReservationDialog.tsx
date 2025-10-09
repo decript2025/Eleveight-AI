@@ -73,7 +73,7 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
         if (responseText) {
           responseJson = JSON.parse(responseText);
         }
-      } catch (parseError) {
+      } catch {
         console.log('[ReservationDialog] Could not parse response as JSON:', responseText);
       }
 
