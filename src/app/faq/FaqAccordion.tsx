@@ -33,7 +33,7 @@ export default function FaqAccordion({ items }: Props) {
               type="button"
               onClick={() => toggle(index)}
               aria-expanded={isOpen}
-              className="w-full text-left px-5 py-4 flex items-center justify-between hover:bg-[#151515] focus:outline-none focus:ring-2 focus:ring-[#2a2a2a]"
+              className="w-full text-left px-5 py-4 flex items-center justify-between hover:bg-[#151515]"
             >
               <span className="text-[18px] tracking-wide text-foreground/90">{item.Question}</span>
               <span aria-hidden className="ml-4 shrink-0">
@@ -51,12 +51,10 @@ export default function FaqAccordion({ items }: Props) {
               </span>
             </button>
             {isOpen && (
-              <div className="px-5 pb-5">
-                <div className="mx-1 rounded-md bg-[#1a1a1a] border border-[#2a2a2a] p-4">
-                  <p className="text-[16px] leading-6 text-foreground/70 whitespace-pre-line">
-                    {item.Answer}
-                  </p>
-                </div>
+              <div className="px-5 pb-6 pt-2">
+                <p className="text-[16px] leading-7 text-foreground/70 whitespace-pre-line">
+                  {item.Answer}
+                </p>
               </div>
             )}
           </div>

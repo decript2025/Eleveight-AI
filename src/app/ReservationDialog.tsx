@@ -66,7 +66,7 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
       
       // Try to parse response body for better error messages
       let responseText = '';
-      let responseJson: any = null;
+      let responseJson: Record<string, unknown> | null = null;
       
       try {
         responseText = await response.text();

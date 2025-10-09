@@ -26,7 +26,8 @@ export default async function FAQPage() {
     <>
       <section className="px-7 md:px-10 py-10 text-foreground mt-30">
         <div className="max-w-4xl mx-auto rounded-2xl bg-[#111] border border-[#2a2a2a] overflow-hidden px-[48px] py-[64px]">
-          <h1 className="text-[40px] md:text-4xl font-bold mb-6 text-center leading-10">Have questions? We’ve got you covered.</h1>
+          <h1 className="text-[46px] font-bold mb-8 text-center">FAQ</h1>
+          <h2 className="text-[40px] md:text-4xl mb-6 text-center leading-10">Have questions? We’ve got you covered.</h2>
           <p className="text-base md:text-lg mb-10 text-center">
           Explore the most common inquiries about Eleveight AI and how we empower innovation.
           </p>
