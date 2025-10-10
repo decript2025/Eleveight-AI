@@ -6,7 +6,7 @@ import { ReservationDialog } from './ReservationDialog';
 export default function Footer() {
   return (
     <footer className="w-full h-[200px] bg-[#1E1D21] flex-shrink-0 relative text-white">
-      <div className="absolute top-5 right-5">
+      <div className="absolute top-5 right-5 md:hidden">
         <ReservationDialog />
       </div>
       
