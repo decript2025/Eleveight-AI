@@ -71,7 +71,6 @@ async function getArticles(page: number = 1, pageSize: number = 20): Promise<Art
     }
     
     const data: ApiResponse = await res.json();
-    console.log('Articles data:', data)
     return {
       articles: data.data || [],
       meta: data.meta
@@ -92,15 +91,6 @@ async function getArticles(page: number = 1, pageSize: number = 20): Promise<Art
   }
 }
 
-function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', { 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
-  });
-}
-
 export default async function NewsPage({ 
   searchParams 
 }: { 
@@ -110,7 +100,7 @@ export default async function NewsPage({
   const currentPage = Number(pageParam) || 1;
   const { articles, meta } = await getArticles(currentPage, 20);
 
-  const { page, pageCount, total } = meta.pagination;
+  const { page, pageCount } = meta.pagination;
   
   // If requesting a page beyond the pageCount, redirect might be needed
   // but for now we'll just show empty results with proper pagination
@@ -151,9 +141,6 @@ export default async function NewsPage({
                               {article.category}
                             </span>
                           )}
-                          {/* <time className="text-sm text-gray-600">
-                            {formatDate(article.publishedAt)}
-                          </time> */}
                         </div>
                         
                         <h2 className="text-xl md:text-2xl font-semibold mb-3 group-hover:text-primary transition-colors">

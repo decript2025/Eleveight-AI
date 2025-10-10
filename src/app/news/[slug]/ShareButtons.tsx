@@ -1,7 +1,6 @@
 'use client';
 
 import { Linkedin } from 'lucide-react';
-import { useState } from 'react';
 
 interface ShareButtonsProps {
   title: string;
@@ -9,7 +8,6 @@ interface ShareButtonsProps {
 }
 
 export default function ShareButtons({ title, description }: ShareButtonsProps) {
-  const [copied, setCopied] = useState(false);
 
   const shareUrl = typeof window !== 'undefined' ? window.location.href : '';
 
