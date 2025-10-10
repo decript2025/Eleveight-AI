@@ -47,8 +47,8 @@ export default async function FAQDetailPage({ params }: Props) {
   }
 
   return (
-    <section className="min-h-screen bg-foreground px-7 md:px-10 py-10">
-      <div className="max-w-4xl mx-auto pt-24">
+    <section className="min-h-screen bg-foreground px-7 md:px-10 py-10 pt-32">
+      <div className="max-w-4xl mx-auto">
         {/* Back to FAQ */}
         <Link 
           href="/faq"
@@ -67,17 +67,6 @@ export default async function FAQDetailPage({ params }: Props) {
           <div className="prose prose-invert max-w-none">
             <p className="text-base md:text-lg leading-relaxed text-foreground whitespace-pre-line">
               {faqData.Answer}
-            </p>
-          </div>
-
-          {/* Metadata */}
-          <div className="mt-12 pt-6 border-t border-[#2a2a2a]">
-            <p className="text-sm text-foreground">
-              Last updated: {new Date(faqData.updatedAt).toLocaleDateString('en-US', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}
             </p>
           </div>
         </div>
