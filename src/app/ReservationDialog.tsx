@@ -111,7 +111,7 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
       </DialogTrigger>
       <DialogContent className="max-w-[500px] max-h-[80vh] overflow-y-auto bg-[#111] text-white border-0 rounded-[14px] shadow-[0_12px_40px_rgba(0,0,0,0.6)] px-8 pb-8 mt-5">
         <DialogHeader className="sticky top-0 bg-[#111] z-10 pt-10 pb-4 px-4">
-          <DialogTitle className="text-[26px] leading-8 font-bold text-center text-white max-w-[450px] m-auto">
+          <DialogTitle className="text-[26px] leading-8 font-bold text-center text-white max-w-[450px] m-auto pr-8">
             Contact us to reserve the latest NVIDIA B300 GPU
           </DialogTitle>
 
