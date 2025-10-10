@@ -31,7 +31,7 @@ export default function Header() {
         <nav className="flex justify-between items-center gap-10">
           <Link href="/">
             <Image
-              className="dark:invert w-[160px] h-auto md:w-[184px]"
+              className="w-[160px] h-auto md:w-[184px]"
               src="/logo.svg"
               alt="Eleveight AI"
               width={184}

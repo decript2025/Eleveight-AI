@@ -9,7 +9,7 @@ export default function ContactsPage() {
             </h1>
 
             <p className="text-xl mb-12 text-center text-gray-600">
-            Connect with our offices in Gagarin, Armenia and Yerevan. Reach us for partnerships, support, and AI collaboration.
+            Connect with our offices in Gagarin and Yerevan. Reach us for partnerships, support, and AI collaboration.
             </p>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
