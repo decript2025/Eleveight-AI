@@ -18,8 +18,6 @@ export default function ContactsPage() {
                 <h2 className="text-2xl font-semibold mb-4 text-center">Data Center</h2>
                 <div className="text-center mb-6">
                   <p className="text-gray-700">Gortsaranayin Street 1, Gagarin, Armenia</p>
-                  <p className="text-gray-700">+374 99 55 12 34</p>
-                  <p className="text-gray-700">info@eleveight.ai</p>
                 </div>
                 <div className="bg-gray-100 rounded-lg overflow-hidden mb-3 flex-grow">
                   <div className="w-full overflow-hidden h-[300px]">
@@ -41,8 +39,6 @@ export default function ContactsPage() {
                 <h2 className="text-2xl font-semibold mb-4 text-center">Head Office</h2>
                 <div className="text-center mb-6">
                   <p className="text-gray-700">1/31 Azatutyan ave., Yerevan, 0037, Armenia</p>
-                  <p className="text-gray-700">+374 99 55 12 34</p>
-                  <p className="text-gray-700">info@eleveight.ai</p>
                 </div>
                 <div className="bg-gray-100 rounded-lg overflow-hidden mb-3 flex-grow">
                   <iframe 
@@ -56,6 +52,16 @@ export default function ContactsPage() {
                     />
                 </div>
               </div>
+            </div>
+
+            <div className="mt-12 text-center">
+              <p className="text-lg text-gray-700">
+                Get in touch with our team by emailing us at{' '}
+                <a href="mailto:info@eleveight.ai" className="text-black font-semibold underline hover:text-gray-700">
+                  info@eleveight.ai
+                </a>
+                .
+              </p>
             </div>
           </div>
         </div>

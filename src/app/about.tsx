@@ -14,10 +14,6 @@ export function About() {
           <p className="mb-3 text-[16px] leading-5">
             The facility is powered by high-performance NVIDIA DGX SuperPOD systems, ensuring maximum efficiency in handling machine learning, deep learning, and other compute-intensive tasks.
           </p>
-          
-          <p className="mb-3 text-[16px] leading-5">
-            Eleveight AI was established as a dedicated data cluster under DIGI Data – the largest colocated data center in Armenia, with an installed capacity of 20 MW. Leveraging the technological and infrastructural foundation of DIGI Data, the project ensures high reliability, scalability, and full compliance with the most advanced industry standards.
-          </p>
         </div>
       </div>
     </section>
