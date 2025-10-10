@@ -6,6 +6,7 @@ export default function Hero () {
     <section className="relative top-[78px] md:top-[85px] overflow-hidden z-[1] mb-[60px]">
       {/* Banner Video */}
       <div className="relative w-full h-[260px] lg:h-[360px] xl:h-[500px] overflow-hidden">
+        {/* <Image src="/landing-banner 2.jpg" alt="Landing banner" fill className="absolute top-0 left-0 object-cover" /> */}
         <video
           className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1920px] h-auto object-cover"
           autoPlay
@@ -14,7 +15,8 @@ export default function Hero () {
           playsInline
           aria-hidden="true"
         >
-          <source src="/video_short.mp4" type="video/mp4" />
+          <source src="/video_banner.webm" type="video/webm" />
+          <source src="/video_banner.mp4" type="video/mp4" />
           {/* Fallback for browsers that don't support video */}
           <div 
             className="w-full h-full bg-cover bg-center bg-no-repeat"
