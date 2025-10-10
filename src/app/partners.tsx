@@ -34,7 +34,7 @@ export function Partners() {
                 alt={img.alt}
                 width={150}
                 height={150}
-                className="h-[150px] w-auto object-contain"
+                className="h-[150px] object-contain"
               />
             </div>
           ))}

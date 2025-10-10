@@ -125,13 +125,12 @@ export default function CompanyPage() {
                   {teamMembers.map((member) => (
                     <div key={member.id} className="flex flex-col items-center text-center">
                       {member.Image?.url && (
-                        <div className="relative w-40 h-40 mb-4 rounded-full overflow-hidden">
+                        <div className="relative mb-4 overflow-hidden">
                           <Image
                             src={`https://console.eleveight.ai${member.Image.url}`}
                             alt={member.Fullname}
-                            fill
-                            sizes="(max-width: 768px) 100vw, 33vw"
-                            className="object-cover rounded-full"
+                            width={234}
+                            height={233}
                           />
                         </div>
                       )}
@@ -165,13 +164,12 @@ export default function CompanyPage() {
                           {row.map((member) => (
                             <div key={member.id} className="flex flex-col items-center text-center">
                               {member.Image?.url && (
-                                <div className="relative w-40 h-40 mb-4 rounded-full overflow-hidden">
+                                <div className="relative mb-4 overflow-hidden">
                                   <Image
                                     src={`https://console.eleveight.ai${member.Image.url}`}
                                     alt={member.Fullname}
-                                    fill
-                                    sizes="160px"
-                                    className="object-cover rounded-full"
+                                    width={234}
+                                    height={233}
                                   />
                                 </div>
                               )}

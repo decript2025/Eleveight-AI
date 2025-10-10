@@ -20,8 +20,6 @@ export default function ContactsPage() {
                   <br />
                   Yerevan, 0037, Armenia
                   <br />
-                  Phone: <a className="underline" href="tel:+37499551234">+374 99 55 12 34</a>
-                  <br />
                   Email: <a className="underline" href="mailto:info@eleveight.ai">info@eleveight.ai</a>
                 </address>
               </section>

@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import ShareButtons from './ShareButtons';
 
 interface ArticleImage {
   id: number;
@@ -11,28 +12,17 @@ interface ArticleImage {
   height: number;
 }
 
-interface ArticleContent {
-  type: string;
-  children: Array<{
-    type: string;
-    text?: string;
-    bold?: boolean;
-    italic?: boolean;
-  }>;
-  level?: number;
-}
-
 interface ArticleData {
   id: number;
   documentId: string;
-  Title: string;
-  Description: string;
+  title: string;
+  description: string;
   slug: string;
-  Content: ArticleContent[];
+  content: string;
   createdAt: string;
   publishedAt: string;
-  Image: ArticleImage;
-  Category?: string;
+  image: ArticleImage;
+  category?: string;
 }
 
 interface ApiResponse {
@@ -69,51 +59,9 @@ function formatDate(dateString: string): string {
   });
 }
 
-function renderContent(content: ArticleContent[]) {
-  return content.map((block, index) => {
-    if (block.type === 'heading') {
-      const level = block.level || 2;
-      const HeadingTag = `h${level}` as 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-      const text = block.children.map(child => child.text).join('');
-      const headingClasses = {
-        h1: 'text-4xl md:text-5xl font-bold mb-6 mt-8',
-        h2: 'text-3xl md:text-4xl font-bold mb-5 mt-7',
-        h3: 'text-2xl md:text-3xl font-bold mb-4 mt-6',
-        h4: 'text-xl md:text-2xl font-bold mb-3 mt-5',
-        h5: 'text-lg md:text-xl font-bold mb-3 mt-4',
-        h6: 'text-base md:text-lg font-bold mb-2 mt-3',
-      };
-      
-      return (
-        <HeadingTag key={index} className={headingClasses[HeadingTag]}>
-          {text}
-        </HeadingTag>
-      );
-    }
-    
-    if (block.type === 'paragraph') {
-      return (
-        <p key={index} className="text-gray-700 leading-relaxed mb-4">
-          {block.children.map((child, childIndex) => {
-            const text = child.text || '';
-            if (child.bold) {
-              return <strong key={childIndex}>{text}</strong>;
-            }
-            if (child.italic) {
-              return <em key={childIndex}>{text}</em>;
-            }
-            return <span key={childIndex}>{text}</span>;
-          })}
-        </p>
-      );
-    }
-    
-    return null;
-  });
-}
-
-export default async function ArticlePage({ params }: { params: { slug: string } }) {
-  const article = await getArticle(params.slug);
+export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = await getArticle(slug);
 
   if (!article) {
     notFound();
@@ -136,32 +84,34 @@ export default async function ArticlePage({ params }: { params: { slug: string }
             <article>
               {/* Category and Date */}
               <div className="flex items-center gap-3 mb-4">
-                {article.Category && (
+                {article.category && (
                   <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">
-                    {article.Category}
+                    {article.category}
                   </span>
                 )}
-                <time className="text-sm text-gray-600">
-                  {formatDate(article.publishedAt)}
-                </time>
               </div>
 
               {/* Title */}
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                {article.Title}
+                {article.title}
               </h1>
 
-              {/* Description */}
-              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-                {article.Description}
-              </p>
+              {/* Description with Share Buttons */}
+              <div className="flex flex-col md:flex-row md:items-start gap-4 mb-8">
+                <p className="text-xl text-gray-600 leading-relaxed flex-1">
+                  {article.description}
+                </p>
+                <div className="flex md:flex-col gap-3 md:gap-2">
+                  <ShareButtons title={article.title} description={article.description} />
+                </div>
+              </div>
 
               {/* Featured Image */}
-              {article.Image && (
+              {article.image && (
                 <div className="relative w-full h-[400px] mb-8 rounded-lg overflow-hidden">
                   <Image
-                    src={`https://console.eleveight.ai${article.Image.url}`}
-                    alt={article.Image.alternativeText || article.Title}
+                    src={`https://console.eleveight.ai${article.image.url}`}
+                    alt={article.image.alternativeText || article.title}
                     fill
                     className="object-cover"
                   />
@@ -169,9 +119,10 @@ export default async function ArticlePage({ params }: { params: { slug: string }
               )}
 
               {/* Article Content */}
-              <div className="prose prose-lg max-w-none">
-                {article.Content && renderContent(article.Content)}
-              </div>
+              <div 
+                className="prose prose-lg max-w-none"
+                dangerouslySetInnerHTML={{ __html: article.content }}
+              />
             </article>
           </div>
         </div>

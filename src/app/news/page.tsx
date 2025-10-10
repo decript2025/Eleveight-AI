@@ -1,5 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from 'assets/components/ui/pagination';
 
 interface ArticleImage {
   id: number;
@@ -13,38 +22,75 @@ interface ArticleImage {
 interface Article {
   id: number;
   documentId: string;
-  Title: string;
-  Description: string;
+  title: string;
+  description: string;
   slug: string;
   createdAt: string;
   publishedAt: string;
-  Image: ArticleImage;
-  Category?: string;
+  image: ArticleImage;
+  category?: string;
+}
+
+interface PaginationMeta {
+  pagination: {
+    page: number;
+    pageSize: number;
+    pageCount: number;
+    total: number;
+  };
 }
 
 interface ApiResponse {
   data: Article[];
+  meta: PaginationMeta;
 }
 
-// Temporarily disabled due to backend issues
-// async function getArticles(): Promise<Article[]> {
-//   try {
-//     const res = await fetch('https://console.eleveight.ai/api/articles?populate=Image', {
-//       next: { revalidate: 60 } // Revalidate every 60 seconds
-//     });
-//     
-//     if (!res.ok) {
-//       throw new Error('Failed to fetch articles');
-//     }
-//     
-//     const data: ApiResponse = await res.json();
-//     console.log(data)
-//     return data.data || [];
-//   } catch (error) {
-//     console.error('Error fetching articles:', error);
-//     return [];
-//   }
-// }
+interface ArticlesResult {
+  articles: Article[];
+  meta: PaginationMeta;
+}
+
+async function getArticles(page: number = 1, pageSize: number = 20): Promise<ArticlesResult> {
+  try {
+    // Build URL with proper pagination parameters
+    const params = new URLSearchParams({
+      'populate': '*',
+      'pagination[page]': page.toString(),
+      'pagination[pageSize]': pageSize.toString()
+    });
+    
+    const res = await fetch(
+      `https://console.eleveight.ai/api/articles?${params.toString()}`,
+      {
+        next: { revalidate: 60 } // Revalidate every 60 seconds
+      }
+    );
+    
+    if (!res.ok) {
+      throw new Error('Failed to fetch articles');
+    }
+    
+    const data: ApiResponse = await res.json();
+    console.log('Articles data:', data)
+    return {
+      articles: data.data || [],
+      meta: data.meta
+    };
+  } catch (error) {
+    console.error('Error fetching articles:', error);
+    return {
+      articles: [],
+      meta: {
+        pagination: {
+          page: 1,
+          pageSize: 20,
+          pageCount: 0,
+          total: 0
+        }
+      }
+    };
+  }
+}
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
@@ -55,10 +101,19 @@ function formatDate(dateString: string): string {
   });
 }
 
-export default async function NewsPage() {
-  // Temporarily disabled API fetch due to backend issues
-  // const articles = await getArticles();
-  const articles: Article[] = [];
+export default async function NewsPage({ 
+  searchParams 
+}: { 
+  searchParams: Promise<{ page?: string }> 
+}) {
+  const { page: pageParam } = await searchParams;
+  const currentPage = Number(pageParam) || 1;
+  const { articles, meta } = await getArticles(currentPage, 20);
+
+  const { page, pageCount, total } = meta.pagination;
+  
+  // If requesting a page beyond the pageCount, redirect might be needed
+  // but for now we'll just show empty results with proper pagination
 
   return (
     <div className="min-h-screen bg-white text-black">      
@@ -78,11 +133,11 @@ export default async function NewsPage() {
                 articles.map((article) => (
                   <article key={article.documentId} className="border-b border-gray-200 pb-8 last:border-b-0">
                     <Link href={`/news/${article.slug}`} className="flex flex-col md:flex-row md:items-start gap-6 group">
-                      {article.Image && (
+                      {article.image && (
                         <div className="relative w-full md:w-64 h-48 flex-shrink-0">
                           <Image
-                            src={`https://console.eleveight.ai${article.Image.url}`}
-                            alt={article.Image.alternativeText || article.Title}
+                            src={`https://console.eleveight.ai${article.image.url}`}
+                            alt={article.image.alternativeText || article.title}
                             fill
                             className="object-cover rounded-lg"
                           />
@@ -91,22 +146,22 @@ export default async function NewsPage() {
                       
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-3">
-                          {article.Category && (
+                          {article.category && (
                             <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">
-                              {article.Category}
+                              {article.category}
                             </span>
                           )}
-                          <time className="text-sm text-gray-600">
+                          {/* <time className="text-sm text-gray-600">
                             {formatDate(article.publishedAt)}
-                          </time>
+                          </time> */}
                         </div>
                         
                         <h2 className="text-xl md:text-2xl font-semibold mb-3 group-hover:text-primary transition-colors">
-                          {article.Title}
+                          {article.title}
                         </h2>
                         
                         <p className="text-gray-600 leading-relaxed mb-4">
-                          {article.Description}
+                          {article.description}
                         </p>
                         
                         <span className="text-primary font-medium group-hover:underline inline-block">
@@ -120,6 +175,61 @@ export default async function NewsPage() {
                 <p className="text-center text-gray-500">No articles available at the moment.</p>
               )}
             </div>
+
+            {/* Pagination */}
+            {pageCount > 1 && (
+              <Pagination className="mt-12">
+                <PaginationContent>
+                  {/* Previous Button */}
+                  {page > 1 && (
+                    <PaginationItem>
+                      <PaginationPrevious href={`/news?page=${page - 1}`} />
+                    </PaginationItem>
+                  )}
+
+                  {/* Page Numbers */}
+                  {Array.from({ length: pageCount }, (_, i) => i + 1).map((pageNum) => {
+                    // Show first page, last page, current page, and pages around current
+                    const showPage = 
+                      pageNum === 1 || 
+                      pageNum === pageCount || 
+                      (pageNum >= page - 1 && pageNum <= page + 1);
+                    
+                    const showEllipsis = 
+                      (pageNum === 2 && page > 3) || 
+                      (pageNum === pageCount - 1 && page < pageCount - 2);
+
+                    if (showEllipsis) {
+                      return (
+                        <PaginationItem key={pageNum}>
+                          <PaginationEllipsis />
+                        </PaginationItem>
+                      );
+                    }
+
+                    if (!showPage) return null;
+
+                    return (
+                      <PaginationItem key={pageNum}>
+                        <PaginationLink 
+                          href={`/news?page=${pageNum}`}
+                          isActive={pageNum === page}
+                        >
+                          {pageNum}
+                        </PaginationLink>
+                      </PaginationItem>
+                    );
+                  })}
+
+                  {/* Next Button */}
+                  {page < pageCount && (
+                    <PaginationItem>
+                      <PaginationNext href={`/news?page=${page + 1}`} />
+                    </PaginationItem>
+                  )}
+                </PaginationContent>
+              </Pagination>
+            )}
           </div>
         </div>
       </main>

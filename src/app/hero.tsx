@@ -4,17 +4,29 @@ import { ReservationDialog } from "./ReservationDialog";
 export default function Hero () {
   return (
     <section className="relative top-[78px] md:top-[85px] overflow-hidden z-[1] mb-[60px]">
-      {/* Banner Image */}
-      <div 
-        className="relative w-full h-[110px] max-[540px]:h-[110px] sm:h-[260px] bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: 'url("/landing-banner 2.jpg")'
-        }}
-        aria-hidden="true"
-      />
+      {/* Banner Video */}
+      <div className="relative w-full h-[260px] lg:h-[360px] xl:h-[500px] overflow-hidden">
+        <video
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1920px] h-auto object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          aria-hidden="true"
+        >
+          <source src="/video_short.mp4" type="video/mp4" />
+          {/* Fallback for browsers that don't support video */}
+          <div 
+            className="w-full h-full bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url("/landing-banner 2.jpg")'
+            }}
+          />
+        </video>
+      </div>
       
       {/* Content below banner */}
-      <div className="container mx-auto px-4 py-12 md:py-16">
+      <div className="container mx-auto px-4 pt-6 py-12 md:py-16">
         <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
           <Image
             className="mb-8 w-[45vw] max-w-[700px] min-w-[200px] sm:min-w-[250px] md:min-w-[300px] max-[540px]:hidden"
