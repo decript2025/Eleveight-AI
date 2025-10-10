@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     siteName: "Eleveight AI",
     images: [
       {
-        url: "/El_generic_opengraph.svg",
+        url: "/El_generic_opengraph.jpg",
         width: 1200,
         height: 630,
         alt: "Eleveight AI",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Eleveight AI - The Cutting-Edge Technologies for AI Disruptions",
     description: "Eleveight AI is a next-generation AI data center in Armenia, powered by NVIDIA DGX SuperPOD systems for machine learning and deep learning workloads.",
-    images: ["/El_generic_opengraph.svg"],
+    images: ["/El_generic_opengraph.jpg"],
   },
 };
 
