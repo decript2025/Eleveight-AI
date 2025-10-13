@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import { Button } from "../components/ui/button";
+import { Button } from "ui/button";
 
 const STORAGE_KEY = "cookie-consent";
 

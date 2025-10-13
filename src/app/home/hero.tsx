@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ReservationDialog } from "./ReservationDialog";
+import { ReservationDialog } from "lib/ReservationDialog";
 
 export default function Hero () {
   return (

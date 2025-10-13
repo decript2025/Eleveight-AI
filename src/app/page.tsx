@@ -1,8 +1,9 @@
-import { About } from "./about";
-import { Features } from "./features";
-import { UseCases } from "./UseCases";
-import Hero from "./hero";
-import { Partners } from "./partners";
+import { About } from "./home/about";
+import { Features } from "./home/features";
+import Hero from "./home/hero";
+import { Partners } from "./home/partners";
+import UseCases from "./home/UseCases";
+
 
 export default function Home() {
   return (

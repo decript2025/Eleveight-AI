@@ -1,8 +1,8 @@
 'use client'
 
 import React from "react";
-import { Carousel, CarouselContent, CarouselItem } from "../components/ui/carousel";
-import type { CarouselApi } from "../components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "ui/carousel";
+import type { CarouselApi } from "ui/carousel";
 
 const images: { src: string; mobileSrc: string; alt: string }[] = [
   { src: "/use-cases/gen2b.jpg", mobileSrc: "/use-cases/Gen2b_mob.png", alt: "Use case 1" },

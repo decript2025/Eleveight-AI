@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ReservationDialog } from './ReservationDialog';
+import { ReservationDialog } from 'lib/ReservationDialog';
 import { useState, useEffect } from 'react';
 
 export default function Header() {

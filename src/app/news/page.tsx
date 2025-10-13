@@ -8,7 +8,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from 'assets/components/ui/pagination';
+} from 'ui/pagination';
 
 interface ArticleImage {
   id: number;
@@ -170,7 +170,7 @@ export default async function NewsPage({
                   {/* Previous Button */}
                   {page > 1 && (
                     <PaginationItem>
-                      <PaginationPrevious href={`/news?page=${page - 1}`} />
+                      <PaginationPrevious href={`/news?page=${page - 1}`} size="default" />
                     </PaginationItem>
                   )}
 
@@ -199,6 +199,7 @@ export default async function NewsPage({
                     return (
                       <PaginationItem key={pageNum}>
                         <PaginationLink 
+                          size="default"
                           href={`/news?page=${pageNum}`}
                           isActive={pageNum === page}
                         >
@@ -211,7 +212,7 @@ export default async function NewsPage({
                   {/* Next Button */}
                   {page < pageCount && (
                     <PaginationItem>
-                      <PaginationNext href={`/news?page=${page + 1}`} />
+                      <PaginationNext size="default" href={`/news?page=${page + 1}`} />
                     </PaginationItem>
                   )}
                 </PaginationContent>

@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import CookieConsent from "./CookieConsent";
-import { Toaster } from "../components/ui/sonner";
+import CookieConsent from "lib/CookieConsent";
+import { Toaster } from "ui/sonner";
 import Header from "./header";
 import Footer from "./footer";
 
@@ -68,7 +68,6 @@ export default function RootLayout({
         {children}
         <CookieConsent />
         <Toaster />
-
         <Footer />
       </body>
     </html>

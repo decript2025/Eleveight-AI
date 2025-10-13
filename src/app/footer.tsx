@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { ReservationDialog } from './ReservationDialog';
+import { ReservationDialog } from 'lib/ReservationDialog';
 
 export default function Footer() {
   return (
