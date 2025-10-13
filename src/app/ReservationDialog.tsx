@@ -202,12 +202,12 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
         
         <form ref={formRef} onSubmit={handleSubmit} className="grid gap-3 sm:px-12 px-4">
           <div className="grid gap-2">
-            <Label htmlFor="firstname" className="text-[#ccc] text-[12px]">First Name *</Label>
+            <Label htmlFor="firstname" className="text-white text-[12px]">First Name *</Label>
             <Input 
               id="firstname" 
               name="firstname"
               type="text"
-              className={`bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none ${errors.firstname ? 'border-red-500 border' : ''}`}
+              className={`bg-[#323135] border-transparent text-white rounded-[6px] focus:border-[#D1D5DB] focus:outline-none ${errors.firstname ? 'border-red-500 border' : ''}`}
               onChange={() => setErrors(prev => ({ ...prev, firstname: '' }))}
               onBlur={handleBlur}
             />
@@ -215,12 +215,12 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="lastname" className="text-[#ccc] text-[12px]">Last Name *</Label>
+            <Label htmlFor="lastname" className="text-white text-[12px]">Last Name *</Label>
             <Input 
               id="lastname"
               name="lastname" 
               type="text"
-              className={`bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none ${errors.lastname ? 'border-red-500 border' : ''}`}
+              className={`bg-[#323135] border-transparent text-white rounded-[6px] focus:border-[#D1D5DB] focus:outline-none ${errors.lastname ? 'border-red-500 border' : ''}`}
               onChange={() => setErrors(prev => ({ ...prev, lastname: '' }))}
               onBlur={handleBlur}
             />
@@ -228,12 +228,12 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="email" className="text-[#ccc] text-[12px]">Email *</Label>
+            <Label htmlFor="email" className="text-white text-[12px]">Email *</Label>
             <Input 
               id="email"
               name="email" 
               type="text"
-              className={`bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none ${errors.email ? 'border-red-500 border' : ''}`}
+              className={`bg-[#323135] border-transparent text-white rounded-[6px] focus:border-[#D1D5DB] focus:outline-none ${errors.email ? 'border-red-500 border' : ''}`}
               onChange={() => setErrors(prev => ({ ...prev, email: '' }))}
               onBlur={handleBlur}
             />
@@ -241,7 +241,7 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="phone" className="text-[#ccc] text-[12px]">Phone *</Label>
+            <Label htmlFor="phone" className="text-white text-[12px]">Phone *</Label>
             <PhoneInput
               name="phone"
               value={phoneNumber}
@@ -258,29 +258,29 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="company_name" className="text-[#ccc] text-[12px]">Company name</Label>
+            <Label htmlFor="company_name" className="text-white text-[12px]">Company name</Label>
             <Input 
               id="company_name"
               name="company_name" 
               type="text"
-              className="bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none"
+              className="bg-[#323135] border-transparent text-white rounded-[6px] focus:border-[#D1D5DB] focus:outline-none"
             />
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="job_title" className="text-[#ccc] text-[12px]">Job title</Label>
+            <Label htmlFor="job_title" className="text-white text-[12px]">Job title</Label>
             <Input 
               id="job_title"
               name="job_title" 
               type="text"
-              className="bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none"
+              className="bg-[#323135] border-transparent text-white rounded-[6px] focus:border-[#D1D5DB] focus:outline-none"
             />
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="computer_needs" className="text-[#ccc] text-[12px]">What are your computer needs? *</Label>
+            <Label htmlFor="computer_needs" className="text-white text-[12px]">What are your computer needs? *</Label>
             <Select name="computer_needs" required defaultValue="GPUs: 1-8">
-              <SelectTrigger className="bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none">
+              <SelectTrigger className="bg-[#323135] border-transparent text-white rounded-[6px] focus:border-[#D1D5DB] focus:outline-none">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="bg-[#2a2a2a] border-[#444] text-white">
@@ -291,9 +291,9 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="contract_length" className="text-[#ccc] text-[12px]">Desired contract length *</Label>
+            <Label htmlFor="contract_length" className="text-white text-[12px]">Desired contract length *</Label>
             <Select name="contract_length" required defaultValue="Below 1 Year">
-              <SelectTrigger className="bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none">
+              <SelectTrigger className="bg-[#323135] border-transparent text-white rounded-[6px] focus:border-[#D1D5DB] focus:outline-none">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="bg-[#2a2a2a] border-[#444] text-white">
@@ -304,9 +304,9 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="when_need" className="text-[#ccc] text-[12px]">How soon do you need this? *</Label>
+            <Label htmlFor="when_need" className="text-white text-[12px]">How soon do you need this? *</Label>
             <Select name="when_need" required defaultValue="Within the next 3 months">
-              <SelectTrigger className="bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none">
+              <SelectTrigger className="bg-[#323135] border-transparent text-white rounded-[6px] focus:border-[#D1D5DB] focus:outline-none">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="bg-[#2a2a2a] border-[#444] text-white">
@@ -317,9 +317,9 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="main_workload" className="text-[#ccc] text-[12px]">What is your main workload? *</Label>
+            <Label htmlFor="main_workload" className="text-white text-[12px]">What is your main workload? *</Label>
             <Select name="main_workload" required defaultValue="Model training">
-              <SelectTrigger className="bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none">
+              <SelectTrigger className="bg-[#323135] border-transparent text-white rounded-[6px] focus:border-[#D1D5DB] focus:outline-none">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent className="bg-[#2a2a2a] border-[#444] text-white">
@@ -330,18 +330,18 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="additional" className="text-[#ccc] text-[12px]">Additional information</Label>
+            <Label htmlFor="additional" className="text-white text-[12px]">Additional information</Label>
             <Textarea 
               id="additional"
               name="comment" 
               rows={4}
-              className="bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] resize-none focus:border-[#D1D5DB] focus:outline-none"
+              className="bg-[#323135] border-transparent text-white rounded-[6px] resize-none focus:border-[#D1D5DB] focus:outline-none"
             />
           </div>
 
-          <div className="flex items-start gap-2 text-[#ADADAD] text-sm leading-5 mb-5">
+          <div className="flex items-start gap-2 text-white text-sm leading-5 mb-5">
             <Checkbox id="agreement" name="subscribe" defaultChecked className="mt-1 h-[18px] w-[18px]" />
-            <Label htmlFor="agreement" className="text-sm text-[#ADADAD] cursor-pointer leading-tight">
+            <Label htmlFor="agreement" className="text-sm text-white cursor-pointer leading-tight">
               I agree to receive other communications from Eleveight AI
             </Label>
           </div>
