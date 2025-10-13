@@ -27,13 +27,84 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
   const [phoneNumber, setPhoneNumber] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [open, setOpen] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const formRef = useRef<HTMLFormElement>(null);
+  
+  const validateField = (name: string, value: string): string => {
+    switch (name) {
+      case 'firstname':
+        if (!value || value.trim().length < 2) {
+          return 'First name must be at least 2 characters';
+        }
+        break;
+      case 'lastname':
+        if (!value || value.trim().length < 2) {
+          return 'Last name must be at least 2 characters';
+        }
+        break;
+      case 'email':
+        if (!value || value.trim().length < 5) {
+          return 'Please enter a valid email address';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          return 'Please enter a valid email address';
+        }
+        break;
+      case 'phone':
+        if (!value || value.trim().length < 4) {
+          return 'Please enter a valid phone number';
+        }
+        break;
+    }
+    return '';
+  };
+
+  const validateForm = (formData: FormData): Record<string, string> => {
+    const newErrors: Record<string, string> = {};
+    
+    const firstname = formData.get('firstname') as string;
+    const lastname = formData.get('lastname') as string;
+    const email = formData.get('email') as string;
+    
+    const firstnameError = validateField('firstname', firstname);
+    if (firstnameError) newErrors.firstname = firstnameError;
+    
+    const lastnameError = validateField('lastname', lastname);
+    if (lastnameError) newErrors.lastname = lastnameError;
+    
+    const emailError = validateField('email', email);
+    if (emailError) newErrors.email = emailError;
+    
+    const phoneError = validateField('phone', phoneNumber);
+    if (phoneError) newErrors.phone = phoneError;
+    
+    return newErrors;
+  };
+  
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    const error = validateField(name, value);
+    setErrors(prev => ({ ...prev, [name]: error }));
+  };
+  
+  const handlePhoneBlur = () => {
+    const error = validateField('phone', phoneNumber);
+    setErrors(prev => ({ ...prev, phone: error }));
+  };
   
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     
     if (isSubmitting) return;
     
+    const formData = new FormData(event.currentTarget);
+    const validationErrors = validateForm(formData);
+    
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    
+    setErrors({});
     setIsSubmitting(true);
     
     try {
@@ -91,6 +162,7 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
       if (formRef.current) {
         formRef.current.reset();
         setPhoneNumber("");
+        setErrors({});
       }
 
       // Close dialog
@@ -125,56 +197,63 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
         
         <form ref={formRef} onSubmit={handleSubmit} className="grid gap-3 sm:px-12 px-4">
           <div className="grid gap-2">
-            <Label htmlFor="firstname" className="text-[#ccc] text-[12px] mb-1">First Name *</Label>
+            <Label htmlFor="firstname" className="text-[#ccc] text-[12px]">First Name *</Label>
             <Input 
               id="firstname" 
               name="firstname"
               type="text"
-              required 
-              minLength={2}
-              className="bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none"
+              className={`bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none ${errors.firstname ? 'border-red-500 border' : ''}`}
+              onChange={() => setErrors(prev => ({ ...prev, firstname: '' }))}
+              onBlur={handleBlur}
             />
+            {errors.firstname && <span className="text-red-500 text-xs">{errors.firstname}</span>}
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="lastname" className="text-[#ccc] text-[12px] mb-1">Last Name *</Label>
+            <Label htmlFor="lastname" className="text-[#ccc] text-[12px]">Last Name *</Label>
             <Input 
               id="lastname"
               name="lastname" 
               type="text"
-              required 
-              minLength={2}
-              className="bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none"
+              className={`bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none ${errors.lastname ? 'border-red-500 border' : ''}`}
+              onChange={() => setErrors(prev => ({ ...prev, lastname: '' }))}
+              onBlur={handleBlur}
             />
+            {errors.lastname && <span className="text-red-500 text-xs">{errors.lastname}</span>}
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="email" className="text-[#ccc] text-[12px] mb-1">Email *</Label>
+            <Label htmlFor="email" className="text-[#ccc] text-[12px]">Email *</Label>
             <Input 
               id="email"
               name="email" 
-              type="email" 
-              required
-              minLength={5}
-              className="bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none"
+              type="text"
+              className={`bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none ${errors.email ? 'border-red-500 border' : ''}`}
+              onChange={() => setErrors(prev => ({ ...prev, email: '' }))}
+              onBlur={handleBlur}
             />
+            {errors.email && <span className="text-red-500 text-xs">{errors.email}</span>}
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="phone" className="text-[#ccc] text-[12px] mb-1">Phone *</Label>
+            <Label htmlFor="phone" className="text-[#ccc] text-[12px]">Phone *</Label>
             <PhoneInput
               name="phone"
               value={phoneNumber}
-              onChange={setPhoneNumber}
+              onChange={(value) => {
+                setPhoneNumber(value);
+                setErrors(prev => ({ ...prev, phone: '' }));
+              }}
+              onBlur={handlePhoneBlur}
               international
               defaultCountry="US"
               placeholder="Enter a phone number"
-              required
             />
+            {errors.phone && <span className="text-red-500 text-xs">{errors.phone}</span>}
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="company_name" className="text-[#ccc] text-[12px] mb-1">Company name</Label>
+            <Label htmlFor="company_name" className="text-[#ccc] text-[12px]">Company name</Label>
             <Input 
               id="company_name"
               name="company_name" 
@@ -184,7 +263,7 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="job_title" className="text-[#ccc] text-[12px] mb-1">Job title</Label>
+            <Label htmlFor="job_title" className="text-[#ccc] text-[12px]">Job title</Label>
             <Input 
               id="job_title"
               name="job_title" 
@@ -194,7 +273,7 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="computer_needs" className="text-[#ccc] text-[12px] mb-1">What are your computer needs? *</Label>
+            <Label htmlFor="computer_needs" className="text-[#ccc] text-[12px]">What are your computer needs? *</Label>
             <Select name="computer_needs" required defaultValue="GPUs: 1-8">
               <SelectTrigger className="bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none">
                 <SelectValue />
@@ -207,7 +286,7 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="contract_length" className="text-[#ccc] text-[12px] mb-1">Desired contract length *</Label>
+            <Label htmlFor="contract_length" className="text-[#ccc] text-[12px]">Desired contract length *</Label>
             <Select name="contract_length" required defaultValue="Below 1 Year">
               <SelectTrigger className="bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none">
                 <SelectValue />
@@ -220,7 +299,7 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="when_need" className="text-[#ccc] text-[12px] mb-1">How soon do you need this? *</Label>
+            <Label htmlFor="when_need" className="text-[#ccc] text-[12px]">How soon do you need this? *</Label>
             <Select name="when_need" required defaultValue="Within the next 3 months">
               <SelectTrigger className="bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none">
                 <SelectValue />
@@ -233,7 +312,7 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="main_workload" className="text-[#ccc] text-[12px] mb-1">What is your main workload? *</Label>
+            <Label htmlFor="main_workload" className="text-[#ccc] text-[12px]">What is your main workload? *</Label>
             <Select name="main_workload" required defaultValue="Model training">
               <SelectTrigger className="bg-[#323135] border-transparent text-[#ADADAD] rounded-[6px] focus:border-[#D1D5DB] focus:outline-none">
                 <SelectValue />
@@ -246,7 +325,7 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="additional" className="text-[#ccc] text-[12px] mb-1">Additional information</Label>
+            <Label htmlFor="additional" className="text-[#ccc] text-[12px]">Additional information</Label>
             <Textarea 
               id="additional"
               name="comment" 
