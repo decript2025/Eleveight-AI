@@ -177,7 +177,12 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
   };
   
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={(isOpen) => {
+      setOpen(isOpen);
+      if (!isOpen) {
+        setErrors({});
+      }
+    }}>
       <DialogTrigger asChild>
         <Button variant={triggerVariant}>Reserve Now</Button>
       </DialogTrigger>
