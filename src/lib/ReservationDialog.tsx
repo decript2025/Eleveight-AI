@@ -6,6 +6,7 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -191,6 +192,9 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
           <DialogTitle className="text-[26px] leading-8 font-bold text-center text-white max-w-[450px] m-auto pr-8">
             Contact us to reserve the latest NVIDIA B300 GPU
           </DialogTitle>
+          <DialogDescription className="text-center text-white/80 text-sm mt-2">
+            Fill out the form below and we'll get back to you with availability and pricing information.
+          </DialogDescription>
 
           <DialogClose asChild>
             <Button variant="no-border" size="icon" className="absolute right-[-15px] top-[15px] text-[#ccc] hover:text-white" aria-label="Close modal">
