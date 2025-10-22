@@ -193,7 +193,7 @@ export function ReservationDialog({ triggerVariant = "default" }: ReservationDia
             Contact us to reserve the latest NVIDIA B300 GPU
           </DialogTitle>
           <DialogDescription className="text-center text-white/80 text-sm mt-2">
-            Fill out the form below and we'll get back to you with availability and pricing information.
+            Fill out the form below and we&apos;ll get back to you with availability and pricing information.
           </DialogDescription>
 
           <DialogClose asChild>
