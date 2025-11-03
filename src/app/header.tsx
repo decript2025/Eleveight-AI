@@ -48,21 +48,21 @@ export default function Header() {
             <span className="flex gap-8">
               <Link
                 href="/company"
-                className={`text-sm min-w-[65px] relative transition-colors duration-300 hover:font-bold after:content-[''] after:absolute after:h-[3px] after:rounded-full after:bg-foreground after:-bottom-[20px] after:left-0 after:transition-all after:duration-300 after:w-0 hover:after:w-full ${isActive('/company') ? 'font-bold after:w-full' : ''}`}
+                className={`text-sm min-w-[75px] relative transition-colors duration-300 hover:font-bold after:content-[''] after:absolute after:h-[3px] after:rounded-full after:bg-foreground after:-bottom-[20px] after:left-0 after:transition-all after:duration-300 after:w-0 hover:after:w-full ${isActive('/company') ? 'font-bold after:w-full' : ''}`}
               >
                 Company
+              </Link>
+              <Link
+                href="/news"
+                className={`text-sm min-w-[80px] relative transition-colors duration-300 hover:font-bold after:content-[''] after:absolute after:h-[3px] after:rounded-full after:bg-foreground after:-bottom-[20px] after:left-0 after:transition-all after:duration-300 after:w-0 hover:after:w-full ${isActive('/news') ? 'font-bold after:w-full' : ''}`}
+              >
+                Newsroom
               </Link>
               <Link
                 href="/contacts"
                 className={`text-sm min-w-[65px] relative transition-colors duration-300 hover:font-bold after:content-[''] after:absolute after:h-[3px] after:rounded-full after:bg-foreground after:-bottom-[20px] after:left-0 after:transition-all after:duration-300 after:w-0 hover:after:w-full ${isActive('/contacts') ? 'font-bold after:w-full' : ''}`}
               >
-                Contact
-              </Link>
-              <Link
-                href="/news"
-                className={`text-sm min-w-[40px] relative transition-colors duration-300 hover:font-bold after:content-[''] after:absolute after:h-[3px] after:rounded-full after:bg-foreground after:-bottom-[20px] after:left-0 after:transition-all after:duration-300 after:w-0 hover:after:w-full ${isActive('/news') ? 'font-bold after:w-full' : ''}`}
-              >
-                News
+                Contacts
               </Link>
             </span>
           </div>
@@ -124,18 +124,18 @@ export default function Header() {
             Company
           </Link>
           <Link
-            href="/contacts"
-            onClick={closeMobileMenu}
-            className={`text-lg py-3 border-b border-foreground/10 transition-colors duration-300 hover:font-bold ${isActive('/contacts') ? 'font-bold' : ''}`}
-          >
-            Contact
-          </Link>
-          <Link
             href="/news"
             onClick={closeMobileMenu}
             className={`text-lg py-3 border-b border-foreground/10 transition-colors duration-300 hover:font-bold ${isActive('/news') ? 'font-bold' : ''}`}
           >
-            News
+            Newsroom
+          </Link>
+          <Link
+            href="/contacts"
+            onClick={closeMobileMenu}
+            className={`text-lg py-3 border-b border-foreground/10 transition-colors duration-300 hover:font-bold ${isActive('/contacts') ? 'font-bold' : ''}`}
+          >
+            Contacts
           </Link>
         </div>
       </div>
