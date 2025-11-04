@@ -65,7 +65,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <div className="max-w-4xl mx-auto">
             {/* Back to News */}
             <Link 
-              href="/news" 
+              href="/newsroom" 
               className="inline-flex items-center text-primary hover:text-primary/80 font-medium transition-colors mb-8"
             >
               ← Back to News

@@ -10,7 +10,7 @@ export default function NotFound() {
           The article you&apos;re looking for doesn&apos;t exist or has been removed.
         </p>
         <Link 
-          href="/news" 
+          href="/newsroom" 
           className="inline-block px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors font-medium"
         >
           Back to News

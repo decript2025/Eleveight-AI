@@ -122,7 +122,7 @@ export default async function NewsPage({
               {articles.length > 0 ? (
                 articles.map((article) => (
                   <article key={article.documentId} className="border-b border-gray-200 pb-8 last:border-b-0">
-                    <Link href={`/news/${article.slug}`} className="flex flex-col md:flex-row md:items-start gap-6 group">
+                    <Link href={`/newsroom/${article.slug}`} className="flex flex-col md:flex-row md:items-start gap-6 group">
                       {article.image && (
                         <div className="relative w-full md:w-64 h-48 flex-shrink-0">
                           <Image
@@ -170,7 +170,7 @@ export default async function NewsPage({
                   {/* Previous Button */}
                   {page > 1 && (
                     <PaginationItem>
-                      <PaginationPrevious href={`/news?page=${page - 1}`} size="default" />
+                      <PaginationPrevious href={`/newsroom?page=${page - 1}`} size="default" />
                     </PaginationItem>
                   )}
 
@@ -200,7 +200,7 @@ export default async function NewsPage({
                       <PaginationItem key={pageNum}>
                         <PaginationLink 
                           size="default"
-                          href={`/news?page=${pageNum}`}
+                          href={`/newsroom?page=${pageNum}`}
                           isActive={pageNum === page}
                         >
                           {pageNum}
@@ -212,7 +212,7 @@ export default async function NewsPage({
                   {/* Next Button */}
                   {page < pageCount && (
                     <PaginationItem>
-                      <PaginationNext size="default" href={`/news?page=${page + 1}`} />
+                      <PaginationNext size="default" href={`/newsroom?page=${page + 1}`} />
                     </PaginationItem>
                   )}
                 </PaginationContent>

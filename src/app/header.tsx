@@ -53,8 +53,8 @@ export default function Header() {
                 Company
               </Link>
               <Link
-                href="/news"
-                className={`text-sm min-w-[80px] relative transition-colors duration-300 hover:font-bold after:content-[''] after:absolute after:h-[3px] after:rounded-full after:bg-foreground after:-bottom-[20px] after:left-0 after:transition-all after:duration-300 after:w-0 hover:after:w-full ${isActive('/news') ? 'font-bold after:w-full' : ''}`}
+                href="/newsroom"
+                className={`text-sm min-w-[80px] relative transition-colors duration-300 hover:font-bold after:content-[''] after:absolute after:h-[3px] after:rounded-full after:bg-foreground after:-bottom-[20px] after:left-0 after:transition-all after:duration-300 after:w-0 hover:after:w-full ${isActive('/newsroom') ? 'font-bold after:w-full' : ''}`}
               >
                 Newsroom
               </Link>
@@ -124,9 +124,9 @@ export default function Header() {
             Company
           </Link>
           <Link
-            href="/news"
+            href="/newsroom"
             onClick={closeMobileMenu}
-            className={`text-lg py-3 border-b border-foreground/10 transition-colors duration-300 hover:font-bold ${isActive('/news') ? 'font-bold' : ''}`}
+            className={`text-lg py-3 border-b border-foreground/10 transition-colors duration-300 hover:font-bold ${isActive('/newsroom') ? 'font-bold' : ''}`}
           >
             Newsroom
           </Link>
