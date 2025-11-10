@@ -127,7 +127,7 @@ export default function CompanyPage() {
             ) : (
               <>
                 {/* Mobile: 1 column, Tablet: 3 columns */}
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:hidden gap-x-8 gap-y-8 md:gap-y-12">
+                <div className="grid grid-cols-1 md:grid-cols-3 lg:hidden gap-y-8 md:gap-y-12">
                   {teamMembers.map((member) => (
                     <div key={member.id} className="flex flex-col items-center text-center">
                       {member.Image?.url && (
@@ -152,26 +152,23 @@ export default function CompanyPage() {
                   ))}
                 </div>
 
-                {/* Desktop: Alternating 4-3-4-3 pattern */}
+                {/* Desktop: 4 columns per row with equal spacing */}
                 <div className="hidden lg:block">
                   {(() => {
                     const rows: TeamMember[][] = [];
                     let currentIndex = 0;
                     
                     while (currentIndex < teamMembers.length) {
-                      const isFirstRowOfPair = rows.length % 2 === 0;
-                      const itemsInRow = isFirstRowOfPair ? 4 : 3;
+                      const itemsInRow = 4;
                       rows.push(teamMembers.slice(currentIndex, currentIndex + itemsInRow));
                       currentIndex += itemsInRow;
                     }
                     
                     return rows.map((row, rowIndex) => {
-                      const isFirstRowOfPair = rowIndex % 2 === 0;
-                      
                       return (
                         <div 
                           key={rowIndex} 
-                          className={`grid gap-x-8 gap-y-12 mb-12 ${isFirstRowOfPair ? 'grid-cols-4' : 'grid-cols-3 max-w-5xl mx-auto'}`}
+                          className="grid grid-cols-4 gap-y-12 mb-12 max-w-5xl mx-auto"
                         >
                           {row.map((member) => (
                             <div key={member.id} className="flex flex-col items-center text-center">
