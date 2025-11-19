@@ -39,7 +39,7 @@ export default function Hero () {
             priority
           />
           <p className="mb-8 animate-fade-in-delay text-[26px] font-bold leading-[32px] leading-6 w-[240px] sm:w-[345px] md:w-[375px] lg:w-[520px] md:text-[22px] lg:text-[26px] lg:leading-7 mx-auto">
-            The cutting-edge technologies for AI disruptions
+            Cutting-edge technologies driving AI disruption
           </p>
 
           <ReservationDialog triggerVariant="no-border" />

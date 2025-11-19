@@ -15,10 +15,10 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://eleveight.ai'),
-  title: "Eleveight AI - The Cutting-Edge Technologies for AI Disruptions",
+  title: "Eleveight AI - Cutting-edge technologies driving AI disruption",
   description: "Eleveight AI is a next-generation AI data center in Armenia, powered by NVIDIA DGX SuperPOD systems for machine learning and deep learning workloads.",
   openGraph: {
-    title: "Eleveight AI - The Cutting-Edge Technologies for AI Disruptions",
+    title: "Eleveight AI - Cutting-edge technologies driving AI disruption",
     description: "Eleveight AI is a next-generation AI data center in Armenia, powered by NVIDIA DGX SuperPOD systems for machine learning and deep learning workloads.",
     url: "https://eleveight.ai",
     siteName: "Eleveight AI",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Eleveight AI - The Cutting-Edge Technologies for AI Disruptions",
+    title: "Eleveight AI - Cutting-edge technologies driving AI disruption",
     description: "Eleveight AI is a next-generation AI data center in Armenia, powered by NVIDIA DGX SuperPOD systems for machine learning and deep learning workloads.",
     images: ["/El_generic_opengraph.jpg"],
   },
