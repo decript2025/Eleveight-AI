@@ -12,6 +12,8 @@ const partners = [
   { src: "/partners/yn_logo.png", alt: "Yn Logo" },
   { src: "/partners/aica_logo.png", alt: "Aica Logo" },
   { src: "/partners/eqwefy_logo.png", alt: "Eqwefy Logo" },
+  { src: "/partners/brand-logo.svg", alt: "Brand Logo" },
+  { src: "/partners/maia-header.svg", alt: "Main Header Logo" },
 ];
 
 export function Partners() {
