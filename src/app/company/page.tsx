@@ -1,7 +1,5 @@
-'use client';
-
-import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { createServerApiClient } from 'lib/api-client';
 
 interface TeamMember {
   id: number;
@@ -19,26 +17,24 @@ interface TeamMember {
   updatedAt: string;
 }
 
-export default function CompanyPage() {
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [isMounted, setIsMounted] = useState(false);
+interface TeamsResponse {
+  data: TeamMember[];
+}
 
-  useEffect(() => {
-    setIsMounted(true);
-    async function fetchTeamMembers() {
-      try {
-        const response = await fetch('https://console.eleveight.ai/api/teams?populate=Image');
-        const data = await response.json();
-        setTeamMembers(data.data || []);
-      } catch (error) {
-        console.error('Failed to fetch team members:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchTeamMembers();
-  }, []);
+async function getTeamMembers(): Promise<TeamMember[]> {
+  try {
+    // Use centralized API client - handles errors, timeouts, retries automatically
+    const serverApi = createServerApiClient({ revalidate: 60 });
+    const data = await serverApi.get<TeamsResponse>('/teams?populate=Image');
+    return data.data || [];
+  } catch {
+    // Error is already logged by api-client, just return empty array
+    return [];
+  }
+}
+
+export default async function CompanyPage() {
+  const teamMembers = await getTeamMembers();
 
   return (
     <div className="min-h-screen bg-white text-black">      
@@ -57,14 +53,14 @@ export default function CompanyPage() {
               <div className="grid md:grid-cols-2 gap-12 mt-16">
                 <div>
                   <h2 className="text-2xl text-center md:text-5xl font-semibold mb-4">Our Mission</h2>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 text-center leading-relaxed">
                   To empower the next generation of artificial intelligence by providing world-class infrastructure, computing power, and scientific expertise — enabling innovators, researchers, and enterprises to turn their most ambitious ideas into reality.
                   </p>
                 </div>
                 
                 <div>
                   <h2 className="text-2xl text-center md:text-5xl font-semibold mb-4">Our Vision</h2>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-gray-600 text-center leading-relaxed">
                   To establish Armenia as a leading hub for AI innovation and data infrastructure — where technology, research, and industry unite to accelerate global progress.
                   </p>
                 </div>
@@ -120,10 +116,8 @@ export default function CompanyPage() {
               Our Team
             </h2>
             
-            {!isMounted ? (
-              <div className="text-center text-gray-600">Loading team members...</div>
-            ) : loading ? (
-              <div className="text-center text-gray-600">Loading team members...</div>
+            {teamMembers.length === 0 ? (
+              <div className="text-center text-gray-600">No team members available.</div>
             ) : (
               <>
                 {/* Mobile: 1 column, Tablet: 3 columns */}

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { createServerApiClient } from 'lib/api-client'
 
 type FAQItem = {
   id: number
@@ -18,19 +19,15 @@ type FAQResponse = {
 export default async function FAQPage() {
   let items: FAQItem[] = []
   try {
-    const res = await fetch('https://console.eleveight.ai/api/faqs', {
-      // Revalidate every hour; adjust as needed
-      next: { revalidate: 3600 },
-      // Ensure fresh data on navigation while still cache-friendly
-      cache: 'force-cache',
+    // Use centralized API client - handles errors, timeouts, retries automatically
+    const serverApi = createServerApiClient({ 
+      revalidate: 3600,
+      cache: 'force-cache'
     })
-
-    if (res.ok) {
-      const json = (await res.json()) as FAQResponse
-      items = Array.isArray(json?.data) ? json.data : []
-    }
+    const data = await serverApi.get<FAQResponse>('/faqs')
+    items = Array.isArray(data?.data) ? data.data : []
   } catch {
-    // Intentionally ignore and fall back to empty state
+    // Error is already logged by api-client, just return empty state
   }
 
   return (

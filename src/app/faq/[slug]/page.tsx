@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import { createServerApiClient } from 'lib/api-client'
 
 type FAQDetailResponse = {
   data: {
@@ -24,21 +25,15 @@ export default async function FAQDetailPage({ params }: Props) {
   let faqData: FAQDetailResponse['data'] | null = null
   
   try {
-    const apiUrl = `https://console.eleveight.ai/api/faqs/slug/${slug}`
-    
-    const res = await fetch(apiUrl, {
-      next: { revalidate: 3600 },
-      cache: 'force-cache',
+    // Use centralized API client - handles errors, timeouts, retries automatically
+    const serverApi = createServerApiClient({ 
+      revalidate: 3600,
+      cache: 'force-cache'
     })
-        
-    if (res.ok) {
-      const json = (await res.json()) as FAQDetailResponse
-      faqData = json?.data
-    } else {
-      notFound()
-    }
-  } catch (error) {
-    console.error('Fetch Error:', error)
+    const data = await serverApi.get<FAQDetailResponse>(`/faqs/slug/${slug}`)
+    faqData = data?.data || null
+  } catch {
+    // Error is already logged by api-client, return 404
     notFound()
   }
 

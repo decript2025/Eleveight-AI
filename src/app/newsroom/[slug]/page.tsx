@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ShareButtons from './ShareButtons';
+import { createServerApiClient } from 'lib/api-client';
 
 interface ArticleImage {
   id: number;
@@ -31,21 +32,12 @@ interface ApiResponse {
 
 async function getArticle(slug: string): Promise<ArticleData | null> {
   try {
-    const res = await fetch(`https://console.eleveight.ai/api/articles/slug/${slug}`, {
-      next: { revalidate: 60 }
-    });
-    
-    if (!res.ok) {
-      if (res.status === 404) {
-        return null;
-      }
-      throw new Error('Failed to fetch article');
-    }
-    
-    const data: ApiResponse = await res.json();
+    // Use centralized API client - handles errors, timeouts, retries automatically
+    const serverApi = createServerApiClient({ revalidate: 60 });
+    const data = await serverApi.get<ApiResponse>(`/articles/slug/${slug}`);
     return data.data;
-  } catch (error) {
-    console.error('Error fetching article:', error);
+  } catch {
+    // Error is already logged by api-client, return null for 404 handling
     return null;
   }
 }

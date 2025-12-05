@@ -50,6 +50,8 @@ interface ArticlesResult {
   meta: PaginationMeta;
 }
 
+import { createServerApiClient } from 'lib/api-client';
+
 async function getArticles(page: number = 1, pageSize: number = 20): Promise<ArticlesResult> {
   try {
     // Build URL with proper pagination parameters
@@ -59,24 +61,16 @@ async function getArticles(page: number = 1, pageSize: number = 20): Promise<Art
       'pagination[pageSize]': pageSize.toString()
     });
     
-    const res = await fetch(
-      `https://console.eleveight.ai/api/articles?${params.toString()}`,
-      {
-        next: { revalidate: 60 } // Revalidate every 60 seconds
-      }
-    );
+    // Use centralized API client - handles errors, timeouts, retries automatically
+    const serverApi = createServerApiClient({ revalidate: 60 });
+    const data = await serverApi.get<ApiResponse>(`/articles?${params.toString()}`);
     
-    if (!res.ok) {
-      throw new Error('Failed to fetch articles');
-    }
-    
-    const data: ApiResponse = await res.json();
     return {
       articles: data.data || [],
       meta: data.meta
     };
-  } catch (error) {
-    console.error('Error fetching articles:', error);
+  } catch {
+    // Error is already logged by api-client, just return empty state
     return {
       articles: [],
       meta: {
