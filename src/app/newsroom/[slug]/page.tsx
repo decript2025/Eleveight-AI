@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import ShareButtons from './ShareButtons';
 import { createServerApiClient } from 'lib/api-client';
+import { sanitizeHtml } from 'lib/utils';
 
 interface ArticleImage {
   id: number;
@@ -49,6 +50,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   if (!article) {
     notFound();
   }
+
+  // Sanitize HTML content to prevent XSS attacks
+  const cleanHtml = sanitizeHtml(article.content);
 
   return (
     <div className="min-h-screen bg-white text-black">
@@ -104,7 +108,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               {/* Article Content */}
               <div 
                 className="prose prose-lg max-w-none [&_p]:py-[10px] [&_h1]:py-[10px] [&_h2]:py-[10px] [&_h3]:py-[10px] [&_ul]:list-disc [&_ul]:ml-6 [&_ul]:py-[10px] [&_li]:mb-2"
-                dangerouslySetInnerHTML={{ __html: article.content }}
+                dangerouslySetInnerHTML={{ __html: cleanHtml }}
               />
             </article>
           </div>
