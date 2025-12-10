@@ -58,7 +58,8 @@ async function getArticles(page: number = 1, pageSize: number = 20): Promise<Art
     const params = new URLSearchParams({
       'populate': '*',
       'pagination[page]': page.toString(),
-      'pagination[pageSize]': pageSize.toString()
+      'pagination[pageSize]': pageSize.toString(),
+      'sort': 'publish_date:desc'
     });
     
     // Use centralized API client - handles errors, timeouts, retries automatically
