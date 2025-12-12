@@ -32,10 +32,10 @@ export default async function FAQPage() {
 
   return (
     <>
-      <section className="px-7 md:px-10 py-10 text-foreground pt-32">
+      <section className="px-3 md:px-7 md:px-10 py-10 text-foreground pt-32">
         <div className="max-w-4xl mx-auto rounded-2xl bg-[#111] border border-[#2a2a2a] overflow-hidden px-[10px] md:px-[48px] py-[64px]">
           <h1 className="text-[46px] font-bold mb-8 text-center">FAQ</h1>
-          <h2 className="text-[40px] md:text-4xl mb-6 text-center leading-10">Have questions? We&apos;ve got you covered.</h2>
+          <h2 className="text-[32px] md:text-[40px] md:text-4xl mb-6 text-center leading-10">Have questions? We&apos;ve got you covered.</h2>
           <p className="text-base md:text-lg mb-10 text-center">
           Explore the most common inquiries about Eleveight AI and how we empower innovation.
           </p>

@@ -6,7 +6,7 @@ import { ReservationDialog } from 'lib/ReservationDialog';
 
 export default function Footer() {
   return (
-    <footer className="w-full h-[200px] bg-[#1E1D21] flex-shrink-0 relative text-white">
+    <footer className="w-full h-[258px] md:h-[200px] bg-[#1E1D21] flex-shrink-0 relative text-white">
       <div className="w-full h-full flex flex-col justify-center items-center">
         <div className="flex flex-col items-center gap-8">
           <div className="md:hidden pt-5">
@@ -48,7 +48,7 @@ export default function Footer() {
             </button>
           </div>
 
-          <p className="text-sm text-white">
+          <p className="text-sm text-white pb-2">
             Eleveight AI. 2025 All rights reserved ©
           </p>
         </div>

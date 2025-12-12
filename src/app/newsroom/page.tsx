@@ -52,7 +52,7 @@ interface ArticlesResult {
 
 import { createServerApiClient } from 'lib/api-client';
 
-async function getArticles(page: number = 1, pageSize: number = 20): Promise<ArticlesResult> {
+async function getArticles(page: number = 1, pageSize: number = 5): Promise<ArticlesResult> {
   try {
     // Build URL with proper pagination parameters
     const params = new URLSearchParams({
@@ -77,7 +77,7 @@ async function getArticles(page: number = 1, pageSize: number = 20): Promise<Art
       meta: {
         pagination: {
           page: 1,
-          pageSize: 20,
+          pageSize: 5,
           pageCount: 0,
           total: 0
         }
@@ -93,7 +93,7 @@ export default async function NewsPage({
 }) {
   const { page: pageParam } = await searchParams;
   const currentPage = Number(pageParam) || 1;
-  const { articles, meta } = await getArticles(currentPage, 20);
+  const { articles, meta } = await getArticles(currentPage, 5);
 
   const { page, pageCount } = meta.pagination;
   
@@ -165,7 +165,7 @@ export default async function NewsPage({
                   {/* Previous Button */}
                   {page > 1 && (
                     <PaginationItem>
-                      <PaginationPrevious href={`/newsroom?page=${page - 1}`} size="default" />
+                      <PaginationPrevious href={`/newsroom?page=${page - 1}`} />
                     </PaginationItem>
                   )}
 
@@ -194,7 +194,6 @@ export default async function NewsPage({
                     return (
                       <PaginationItem key={pageNum}>
                         <PaginationLink 
-                          size="default"
                           href={`/newsroom?page=${pageNum}`}
                           isActive={pageNum === page}
                         >
@@ -207,7 +206,7 @@ export default async function NewsPage({
                   {/* Next Button */}
                   {page < pageCount && (
                     <PaginationItem>
-                      <PaginationNext size="default" href={`/newsroom?page=${page + 1}`} />
+                      <PaginationNext href={`/newsroom?page=${page + 1}`} />
                     </PaginationItem>
                   )}
                 </PaginationContent>
